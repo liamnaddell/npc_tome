@@ -1,0 +1,1360 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 0.25in
+\topmargin 0.25in
+\rightmargin 0.25in
+\bottommargin 0.25in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation 0bp
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+What is NP?
+\end_layout
+
+\begin_layout Standard
+NP is a class of languages that have polynomial time verifiers
+\end_layout
+
+\begin_layout Subsection
+Verifiers
+\end_layout
+
+\begin_layout Standard
+A verifier for a language A is an algorithm V where
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A=\left\{ w|\text{ V accepts \left\langle w,c\right\rangle for some string c }\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The time it takes to run a verifier is measured in terms of the length of
+ w.
+ In this system, c is the certificate
+\end_layout
+
+\begin_layout Section
+NP-COMPLETENESS
+\end_layout
+
+\begin_layout Standard
+NP-Complete problems are problems that are both in NP and NP-hard.
+ An NP-Hard problem is a problem that is at least as hard as all other NP-hard
+ problems.
+ Putting these toegether, if one NP-complete problem has a polytime solver,
+ they all do.
+ But, if one NP-complete problem can be shown to have no polytime solver,
+ none of them do
+\end_layout
+
+\begin_layout Subsection
+The grandfather of NP-Complete problems: SAT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{SAT}=\left\{ \left\langle \phi\right\rangle \vert\phi\text{ is a satisfiable boolean formula}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A satisfiable boolean formula is a boolean formula such that some assignment
+ of variables makes the formula output true.
+ Truth assignments are often labeled 
+\begin_inset Formula $\tau$
+\end_inset
+
+, and assigning the variables in 
+\begin_inset Formula $\phi$
+\end_inset
+
+ with the assignments in 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is 
+\begin_inset Formula $\tau\left(\phi\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This proof looks too big to put here
+\end_layout
+
+\begin_layout Section
+Polytime reductions
+\end_layout
+
+\begin_layout Standard
+Language A is polytime reducible to language B, 
+\begin_inset Formula $A\leq_{p}B$
+\end_inset
+
+ if a TOTAL, POLYTIME, and COMPUTABLE function 
+\begin_inset Formula $f:\Sigma^{\star}\to\Sigma^{\star}$
+\end_inset
+
+ exists with the property that 
+\begin_inset Formula $w\in A\iff f(w)\in B$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So to reduce A to B, create a function which maps yes instances of A to
+ yes instances of B, and no instances of A to no instances of B, this is
+ the contrapositive.
+ 
+\end_layout
+
+\begin_layout Subsection
+How do polytime reductions relate to time complexity?
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $A\leq_{p}B$
+\end_inset
+
+, or A polytime reduces to B, and B is in P, then, here's a polytime solver
+ for A
+\end_layout
+
+\begin_layout Quote
+solveA
+\begin_inset Formula $\left\langle w\right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+\begin_inset Formula $w_{b}=f(w)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+return solveB
+\begin_inset Formula $\left(w_{b}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since f is a polytime computable total function that maps yes instances
+ of A to yes instances of B, and solveB is polytime, if solveB accepts,
+ then w must be in A, and if solveB rejects, w must NOT be in A.
+ Additionally, since B and f are polytime computable, solveA must be polytime
+ computable.
+ This is the core of polytime computability
+\end_layout
+
+\begin_layout Subsection
+Polytime reductions and it's incomprehensible notation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\leq_{p}$
+\end_inset
+
+ is one of the most confusing and poorly implemented operators I have ever
+ seen.
+ Typically, symbols notate a relation between two objects.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+justification
+\begin_inset Quotes erd
+\end_inset
+
+ for 
+\begin_inset Formula $\leq_{p}$
+\end_inset
+
+ is that if 
+\begin_inset Formula $A\leq_{p}B$
+\end_inset
+
+, A is 
+\begin_inset Quotes eld
+\end_inset
+
+Less than or equal to B
+\begin_inset Quotes erd
+\end_inset
+
+ in terms of hardness.
+ This is complete gibberish.
+ This is an 
+\begin_inset Quotes eld
+\end_inset
+
+operator
+\begin_inset Quotes erd
+\end_inset
+
+ which communicates the thing one can prove using the existence of a relation
+ between two objects.
+ Imagine if we wrote all notation this way! There would be COMPLETE ANARCHY!!!!
+ Not only that, but this convention encourages un-mathematical, un-creative,
+ instrumentalist applications of mathematical reasoning.
+ This is wholly unfit for a theoretical course.
+ This is unlike all other notation, and the person who invented it should
+ be candidate #2 for NASA's man-on-the-sun space mission right after Elon
+ Musk.
+\end_layout
+
+\begin_layout Subsubsection
+How to remember this difficult notation
+\end_layout
+
+\begin_layout Standard
+Rule 1: read right to left: if 
+\begin_inset Formula $A\leq_{p}B$
+\end_inset
+
+, then a polytime reduction FROM A, TO B exists, I.e.
+ inputs in A, go TO, B.
+ The english phraseology gets this exactly correct.
+ A polytime reduction goes from A to B, and the inputs of A, go TO B.
+ 
+\end_layout
+
+\begin_layout Subsection
+Polytime reduction definition of NP-complete
+\end_layout
+
+\begin_layout Standard
+Using our new approach, we can define NP-completeness to be
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+A language B is NP-complete if it satisfies two conditions:
+\end_layout
+
+\begin_layout Standard
+1.
+ B is in NP
+\end_layout
+
+\begin_layout Standard
+2.
+ if A
+\begin_inset Formula $\in$
+\end_inset
+
+NP, then 
+\begin_inset Formula $A\leq_{p}B$
+\end_inset
+
+ for any A in NP
+\end_layout
+
+\begin_layout Standard
+This works because if B has a polytime solver, then A must have a polytime
+ solver.
+ This means that B's solvability in polynomial time makes a claim about
+ every single NP-complete problem's solvability in polytime, which is the
+ point of the NP-complete class
+\end_layout
+
+\begin_layout Section
+The first reduction: SAT
+\begin_inset Formula $\leq_{p}$
+\end_inset
+
+3SAT 
+\end_layout
+
+\begin_layout Standard
+PROVE 3SAT is in NP! 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{3SAT}=\left\{ \phi\vert\phi\text{ is a 3-cnf formula which is satisfiable}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A 3-cnf formula, or 
+\begin_inset Quotes eld
+\end_inset
+
+conjunctive normal form formula with 3 variables in each clause
+\begin_inset Quotes erd
+\end_inset
+
+ is composed of clauses as follows: 
+\begin_inset Formula $\left(x\vee y\vee\neg x\right)\wedge\left(z\vee p\vee\neg x\right)\wedge\cdots$
+\end_inset
+
+.
+ Notably, these formulas have no constants.
+ An easy way to remember is that cnf formulas are 
+\begin_inset Quotes eld
+\end_inset
+
+sad
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $\left(^{\odot}\vee^{\odot}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{SAT\ensuremath{\leq_{p}}3SAT}$
+\end_inset
+
+.
+ Showing SAT Polytime reduces to 3SAT will show that if 3SAT is in P, then
+ SAT is in P.
+ This proves that 3SAT is NP-complete
+\end_layout
+
+\begin_layout Standard
+The details of this reduction are not super important, since finding an
+ algorithm to take any formula composed of literals, ands, or's and nots
+ and transforming it into a 3-cnf formula is very boring and not required
+ knowledge.
+ But an appropriate algorithm would have the following passes:
+\end_layout
+
+\begin_layout Standard
+1.
+ Transform literals into tautologies, 
+\begin_inset Formula $\neg x\vee x=1$
+\end_inset
+
+, 
+\begin_inset Formula $\neg x\wedge x=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2.
+ Use de morgan's law to make all nots go directly in front of variables
+\end_layout
+
+\begin_layout Standard
+3.
+ probably many others
+\end_layout
+
+\begin_layout Standard
+Intuitively, such an algorithm makes sense since we are used to transforming
+ logical statements into other equivalent statements, since this was tested
+ in a67 and many other courses.
+ 
+\end_layout
+
+\begin_layout Standard
+By the principle of arm waiving, we now have a function 
+\begin_inset Formula $f\left(\phi\right)\to\phi^{\prime}$
+\end_inset
+
+st if 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is a boolean formula, 
+\begin_inset Formula $\phi^{\prime}$
+\end_inset
+
+ is a 3-cnf formula.
+ and 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is equivalent to 
+\begin_inset Formula $\phi^{\prime}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now, for the proof:
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\phi\in\text{SAT}$
+\end_inset
+
+, then 
+\begin_inset Formula $\phi^{\prime}$
+\end_inset
+
+ is satisfiable, which implies since it is 3-cnf, it is in 3SAT
+\end_layout
+
+\begin_layout Standard
+(using the contraposition)
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\phi\not\in\text{SAT}$
+\end_inset
+
+, then 
+\begin_inset Formula $\phi^{\prime}$
+\end_inset
+
+ is not satisfiable, which implies it is not in 3SAT
+\end_layout
+
+\begin_layout Standard
+QED
+\end_layout
+
+\begin_layout Section
+The first REAL reduction: 
+\begin_inset Formula $\text{3SAT\ensuremath{\leq_{p}}CLIQUE}$
+\end_inset
+
+, Showing CLIQUE is NP-complete
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\text{CLIQUE}=\left\{ \left\langle G,k\right\rangle \vert\text{ G is a graph which contains a clique of size k}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Proof that CLIQUE
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Standard
+Here's a polytime verifier for CLIQUE:
+\end_layout
+
+\begin_layout Standard
+Let the certificate C be a set of vertices that form a clique, and let G
+ be a graph
+\end_layout
+
+\begin_layout Quote
+VerifyCLIQUE
+\begin_inset Formula $\left\langle \left\langle G,k\right\rangle ,C\right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+if 
+\begin_inset Formula $\left|C\right|<k$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+return false
+\end_layout
+
+\end_deeper
+\begin_layout Quote
+for each vertex in C:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+check that it connects to every other vertex in c
+\end_layout
+
+\begin_layout Quote
+if it doesn't return false
+\end_layout
+
+\end_deeper
+\begin_layout Quote
+return true
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Worst case, G=C, so at worst, this algorithm runs in 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ time.
+ This is sufficient justification to show that CLIQUE
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Subsection
+Proof that CLIQUE is NP-complete
+\end_layout
+
+\begin_layout Standard
+A clique is a set of vertices where each vertex in the clique is connected
+ to every other vertex in the clique with an edge.
+ 
+\end_layout
+
+\begin_layout Standard
+The way we will go about reducing these is to come up with some equivalent
+ structure to clauses, and conjunctions in graphs, often called widgets
+ or gadgets.
+ Since some have argued that graphs are a 
+\begin_inset Quotes eld
+\end_inset
+
+universal
+\begin_inset Quotes erd
+\end_inset
+
+ data structure capable of storing all other data structures, this should
+ be easy!
+\end_layout
+
+\begin_layout Standard
+The steps to make this construction go as follows, Given 3-cnf formula 
+\begin_inset Formula $\phi$
+\end_inset
+
+, output G and k as follows:
+\end_layout
+
+\begin_layout Standard
+1.
+ For each variable in 
+\begin_inset Formula $\phi$
+\end_inset
+
+, add a corresponding vertex in 
+\begin_inset Formula $G$
+\end_inset
+
+named after the variable
+\end_layout
+
+\begin_layout Standard
+2.
+ Connect every vertex to every other vertex in G with an edge
+\end_layout
+
+\begin_layout Standard
+3.
+ Remove all edges between 
+\begin_inset Quotes eld
+\end_inset
+
+contradictory
+\begin_inset Quotes erd
+\end_inset
+
+ vertexes like 
+\begin_inset Formula $\neg x$
+\end_inset
+
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+4.
+ Remove all edges between vertexes that appear in the same clause (so if
+ 
+\begin_inset Formula $\left(c_{1}\vee c_{2}\vee c_{3}\right)$
+\end_inset
+
+ appears in 
+\begin_inset Formula $\phi$
+\end_inset
+
+, no edge should exist from 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+to 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ to 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+5.
+ set k to be the number of clauses in 
+\begin_inset Formula $\phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, to argue that 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT\ensuremath{\iff\left\langle G,k\right\rangle \in\text{CLIQUE}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+, then a satisfiable truth assignment 
+\begin_inset Formula $\tau$
+\end_inset
+
+ exists such that every clause in 
+\begin_inset Formula $\phi$
+\end_inset
+
+ returns true.
+ This means at least one variable in each triplet evaluates to true.
+ If one puts these three variables (henceforth vertices) into a set, these
+ vertices will form a k-clique.
+ 
+\end_layout
+
+\begin_layout Standard
+Now, for the reverse direction, suppose that G contains a k-clique: 
+\end_layout
+
+\begin_layout Standard
+We know the elements of this clique must all appear in distinct clauses
+ since there are no edges to vertices of the same clause.
+ Similarly, we know none of these vertices have edges to contradictory labels
+ by the given construction above.
+ Now, create a truth assignment 
+\begin_inset Formula $\tau$
+\end_inset
+
+ with the labels from the vertices inside the k-clique.
+ Therefore, this truth assignment must satisfy 
+\begin_inset Formula $\phi$
+\end_inset
+
+.
+ Therefore, if 
+\begin_inset Formula $\left\langle G,k\right\rangle \in\text{CLIQUE}$
+\end_inset
+
+, then 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+What is this?
+\end_layout
+
+\begin_layout Standard
+What are the gadgets?
+\end_layout
+
+\begin_layout Standard
+The core idea is that a clique must contain k vertices who's variables can
+ ALL BE TRUE at the same time, AND are of different clauses.
+ This is a corollary of satisfiability.
+ This is why the two restrictions on edges exist.
+ In short, the reasoning is that 
+\begin_inset Quotes eld
+\end_inset
+
+If k variables can be true at the same time (SAT), then an edge exists between
+ all of them
+\begin_inset Quotes erd
+\end_inset
+
+, and 
+\begin_inset Quotes eld
+\end_inset
+
+if k vertices form a clique (CLIQUE), then they can all be true at the same
+ time, and are of different clauses
+\end_layout
+
+\begin_layout Subsection
+Time Complexity Analysis
+\end_layout
+
+\begin_layout Standard
+I argue that our mapping reduction is polytime because 
+\end_layout
+
+\begin_layout Enumerate
+It iterates over 
+\begin_inset Formula $\phi$
+\end_inset
+
+ once to create G's adjacency list: 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+It iterates over G's adjacency list once to connect all edges: 
+\begin_inset Formula $\mathcal{O}\left(n^{2}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+It iterates twice more to ensure a proper construction: 
+\begin_inset Formula $\mathcal{O}\left(2n^{2}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, this is a polytime construction
+\end_layout
+
+\begin_layout Subsection
+The big result?
+\end_layout
+
+\begin_layout Standard
+CLIQUE is NP-complete
+\end_layout
+
+\begin_layout Section
+Vertex Cover is NP Complete
+\end_layout
+
+\begin_layout Standard
+VERTEX-COVER=
+\begin_inset Formula $\left\{ \left\langle G,k\right\rangle \text{ G is an undirected graph which has a k-node vertex cover}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A vertex cover VC is a set of vertices such that all edges either start
+ or end at a node in VC
+\end_layout
+
+\begin_layout Subsection
+Proof that VERTEX-COVER
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Standard
+Here's a polynomial time verifier for VERTEX-COVER, where C is a set of
+ nodes which are in the vertex cover
+\end_layout
+
+\begin_layout Quote
+VerifyVERTEX-COVER
+\begin_inset Formula $\left\langle \left\langle G,k\right\rangle ,C\right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+if 
+\begin_inset Formula $\left|C\right|<k$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+return false
+\end_layout
+
+\end_deeper
+\begin_layout Quote
+For each vertex in C:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+mark each of its adjacent edges as covered
+\end_layout
+
+\end_deeper
+\begin_layout Quote
+for each edge in G:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+if the edge is not marked as covered:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+return false
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Quote
+return true
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This verifier clearly runs in polynomial time since it goes through every
+ edge of G once, which serves a maximum complexity of 
+\begin_inset Formula $\mathcal{O}\left(n^{2}\right)$
+\end_inset
+
+, where n is the number of vertices, and 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ is the number of edges in a fully connected graph.
+\end_layout
+
+\begin_layout Subsection
+Proof that VERTEX-COVER is NP-Complete
+\end_layout
+
+\begin_layout Standard
+While it might seem reasonable to reduce from 
+\begin_inset Formula $\text{CLIQUE}\leq_{p}\text{VERTEX-COVER}$
+\end_inset
+
+, we are instead going to choose 3SAT
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{3SAT}\leq_{p}\text{VERTEX-COVER}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, our reduction takes inputs in 3SAT, and transforms them into inputs
+ into VERTEX-COVER, namely a graph G, and a size k.
+ Our input is a 3-cnf formula 
+\begin_inset Formula $\phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To make this reduction, we will 
+\end_layout
+
+\begin_layout Standard
+1.
+ Take every variable in 
+\begin_inset Formula $\phi$
+\end_inset
+
+, and add a vertex in G.
+ 
+\end_layout
+
+\begin_layout Standard
+2.
+ If 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{x}_{i}$
+\end_inset
+
+appear in 
+\begin_inset Formula $G$
+\end_inset
+
+, add an edge between 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{x}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+3.
+ If 3 variables occur in a clause of 
+\begin_inset Formula $\phi$
+\end_inset
+
+, add a new copy of each variable into G, and add an edge between each new
+ vertice to every other vertice (GRAPH NEEDED)
+\end_layout
+
+\begin_layout Standard
+4.
+ Connect all 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+'s to other 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+'s and all 
+\begin_inset Formula $\bar{x}_{i}$
+\end_inset
+
+to every other 
+\begin_inset Formula $\bar{x}_{i}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+5.
+ set k to be the number of variables in 
+\begin_inset Formula $\phi$
+\end_inset
+
+ + 2 times the number of clauses in 
+\begin_inset Formula $\phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, for the justification: 
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+, then, select a satisfiable assignment 
+\begin_inset Formula $\tau$
+\end_inset
+
+, and put all the variable widgets that are assigned true in 
+\begin_inset Formula $\tau$
+\end_inset
+
+ into our vertex cover.
+ Now, take 1 variable that was assigned true from each clause, and put the
+ other two variables in its clause into the vertex cover.
+ Since our vertex cover has 1 variable per variable widget in the VC, and
+ 2 clause widget variables per clause in the VC, it must have k vertices
+ in the vertex-cover.
+ Therefore, a vertex cover of size k exists.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle G,k\right\rangle \in\text{VERTEX-COVER}$
+\end_inset
+
+, then our Vertex Cover VC, must select 1 and only 1 variable per variable
+ widget, since if it selected 2, it would have to skimp out on including
+ clause variable widgets, which wouldn't form a full vertex cover.
+ In addition, the vertex cover must select 2 nodes from each clause, where
+ the unselected node is set to true, since if it didn't it would miss the
+ edge from a node which was set to false to the variable widget.
+ This forms a VC of size k, and the selected variables in the vertex clause
+ must form satisfiable truth assignment since one unselected-but-true edge
+ must exist in each clause.
+ 
+\end_layout
+
+\begin_layout Section
+HAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+A hamiltonian path is a path that visits each vertex of a graph exactly
+ once.
+ A hamiltonian path from s to t consists of a hamiltonian path with its
+ head at s and tail at t.
+ (heads and tails since these are directed graphs)
+\end_layout
+
+\begin_layout Standard
+Formally: 
+\begin_inset Formula $\text{HAMPATH}=\left\{ \left\langle G,s,t\right\rangle \vert\text{ G contains a hamiltonian path from s to t}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+HAMPATH
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Subsection
+HAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{3SAT}\leq_{p}\text{HAMPATH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Assignment question: 2b
+\end_layout
+
+\begin_layout Subsection
+Prove that DISJOINT-CLIQUE is in NP
+\end_layout
+
+\begin_layout Subsection
+Show DISJOINT-CLIQUE is NP-Complete
+\end_layout
+
+\begin_layout Standard
+We will reduce from 
+\begin_inset Formula $\text{CLIQUE}\leq_{p}\text{DISJOINT-CLIQUE}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To transform an input to CLIQUE 
+\begin_inset Formula $\left\langle G,k\right\rangle $
+\end_inset
+
+ to an input 
+\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle $
+\end_inset
+
+ to DISJOINT-CLIQUE, do as follows:
+\end_layout
+
+\begin_layout Standard
+1.
+ Put all vertices with k-1 or more edges into a group C
+\end_layout
+
+\begin_layout Standard
+2.
+ Let 
+\begin_inset Formula $G^{\prime}=C+C^{\prime}$
+\end_inset
+
+where 
+\begin_inset Formula $C^{\prime}$
+\end_inset
+
+is all of the edges and vertices in C but with an added 
+\begin_inset Formula $\prime$
+\end_inset
+
+ to the vertex names
+\end_layout
+
+\begin_layout Standard
+3.
+ Let 
+\begin_inset Formula $k^{\prime}=k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pf that this reduciton works:
+\end_layout
+
+\begin_layout Subsubsection
+Assume 
+\begin_inset Formula $\left\langle G,k\right\rangle \in\text{CLIQUE}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+If G has a clique of size k, then all edges in the clique must have k-1
+ or more edges leading out of it.
+ This implies that all these edges are cloned into 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+, which implies that 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+has two cliques of size k (or more).
+ This implies that 
+\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Assume 
+\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ has at least two cliques of size k, then suppose for purposes of contradiction
+ that 
+\begin_inset Formula $G$
+\end_inset
+
+ has no clique of size k.
+ If G has no clique of size k, then no subset of 
+\begin_inset Formula $C^{\prime}$
+\end_inset
+
+ must form a clique of size k.
+ This implies that none of the components of C form a clique of size k.
+ This implies that 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+, which equals 
+\begin_inset Formula $C+C^{\prime}$
+\end_inset
+
+, has no cliques of size k, which is a contradiction to the assumption that
+ 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ has at least two cliques of size k.
+ Therefore, if 
+\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE\ensuremath{\implies\left\langle G,k\right\rangle \in\text{CLIQUE}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+This reduction is polytime
+\end_layout
+
+\begin_layout Standard
+Finding all the vertices with 
+\begin_inset Formula $k-1$
+\end_inset
+
+ or more edges takes 
+\begin_inset Formula $\mathcal{O}\left(n^{2}\right)$
+\end_inset
+
+ time, so this reduction is polytime
+\end_layout
+
+\begin_layout Subsection
+Find a non-decision version of DISJOINT-CLIQUE
+\end_layout
+
+\begin_layout Standard
+MAX-DISJOINT-CLIQUE
+\end_layout
+
+\begin_layout Standard
+Input: A graph G
+\end_layout
+
+\begin_layout Standard
+Output: A set of vertices 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ are disjoint cliques, and there are no two disjoint cliques of greater
+ size in G
+\end_layout
+
+\begin_layout Standard
+I did not want to prove this
+\end_layout
+
+\end_body
+\end_document
