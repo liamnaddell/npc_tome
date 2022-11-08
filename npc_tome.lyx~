@@ -5,6 +5,11 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+\usetikzlibrary{arrows}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -1147,19 +1152,74 @@ HAMPATH
 NP
 \end_layout
 
-\begin_layout Subsection
-HAMPATH is NP-Complete
+\begin_layout Standard
+Here is a polytime verifier for HAMPATH.
+ Let C, the certificate, be a hamiltonian path (a set of vertexes and edges)
+ from s to t.
+ 
 \end_layout
 
+\begin_layout Quote
+VerifyHAMPATH
+\begin_inset Formula $\left\langle \left\langle G,s,t\right\rangle ,C\right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+Trace along the path C: and mark edges G which were visited.
+ If an edge that was previously visited is visited again, reject
+\end_layout
+
+\begin_layout Quote
+check if every vertex in G, if all were visited, accept
+\end_layout
+
+\begin_layout Quote
+else reject (or loop?)
+\end_layout
+
+\end_deeper
 \begin_layout Standard
-WTS: 
-\begin_inset Formula $\text{3SAT}\leq_{p}\text{HAMPATH}$
+\begin_inset Separator plain
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
+This verifier goes through the path C, which is 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+.
+ Then, checking every vertex is visited takes 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+.
+ Therefore, this verifier is polynomial time and takes 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+HAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "graphics/hampath.tex"
+
+\end_inset
+
 
 \end_layout
 

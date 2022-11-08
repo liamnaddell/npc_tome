@@ -1152,12 +1152,64 @@ HAMPATH
 NP
 \end_layout
 
-\begin_layout Subsection
-HAMPATH is NP-Complete
+\begin_layout Standard
+Here is a polytime verifier for HAMPATH.
+ Let C, the certificate, be a hamiltonian path (a set of vertexes and edges)
+ from s to t.
+ 
+\end_layout
+
+\begin_layout Quote
+VerifyHAMPATH
+\begin_inset Formula $\left\langle \left\langle G,s,t\right\rangle ,C\right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+Trace along the path C: and mark edges G which were visited.
+ If an edge that was previously visited is visited again, reject
+\end_layout
+
+\begin_layout Quote
+check if every vertex in G, if all were visited, accept
+\end_layout
+
+\begin_layout Quote
+else reject (or loop?)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+This verifier goes through the path C, which is 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
 
+.
+ Then, checking every vertex is visited takes 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+.
+ Therefore, this verifier is polynomial time and takes 
+\begin_inset Formula $\mathcal{O}\left(n\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+HAMPATH is NP-Complete
 \end_layout
 
 \begin_layout Standard
@@ -1362,6 +1414,46 @@ Output: A set of vertices
 
 \begin_layout Standard
 I did not want to prove this
+\end_layout
+
+\begin_layout Section
+DOUBLE-HAMPATH is NP-complete
+\end_layout
+
+\begin_layout Subsection
+Show that DOUBLE-HAMPATH
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Subsection
+Show that DOUBLE-HAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{\ensuremath{\text{HAMPATH}\leq_{p}}DOUBLE-HAMPATH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To construct this, if 
+\begin_inset Formula $\left\langle G,s,t\right\rangle $
+\end_inset
+
+ is an input to HAMPATH, we must map it to an input 
+\begin_inset Formula $\left\langle G^{\prime},s^{\prime},t^{\prime}\right\rangle $
+\end_inset
+
+ to DOUBLE-HAMPATH
+\end_layout
+
+\begin_layout Subsection
+Find a non-decision version
 \end_layout
 
 \end_body
