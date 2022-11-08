@@ -5,11 +5,6 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
-\begin_preamble
-\usepackage{tikz}
-\usetikzlibrary{graphs}
-\usetikzlibrary{arrows}
-\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -1157,17 +1152,14 @@ HAMPATH is NP-Complete
 \end_layout
 
 \begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{3SAT}\leq_{p}\text{HAMPATH}$
+\end_inset
+
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-preview true
-filename "graphics/hampath.tex"
-
-\end_inset
-
 
 \end_layout
 
