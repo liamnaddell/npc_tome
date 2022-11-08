@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+
+\tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}
+\tikzset{edge/.style = {->,> = latex'}}
+% vertices
+\node[vertex] (s) at  (0,0) {$s$};
+\node[vertex] (x) at  (1,1) {$x$};
+\node[vertex] (y) at  (1,-1) {$y$};
+\node[vertex] (st) at  (2,0) {$s_t$};
+%edges
+\draw[edge] (s) to (x);
+\draw[edge] (s) to (y);
+\draw[edge] (x) to (st);
+\draw[edge] (y) to (st);
+\draw[edge] (x) to (y);
+\draw[edge] (y) to (x);
+\end{tikzpicture}

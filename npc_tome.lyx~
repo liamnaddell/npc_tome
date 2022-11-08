@@ -1416,5 +1416,168 @@ Output: A set of vertices
 I did not want to prove this
 \end_layout
 
+\begin_layout Section
+DOUBLE-HAMPATH is NP-complete
+\end_layout
+
+\begin_layout Subsection
+Show that DOUBLE-HAMPATH
+\begin_inset Formula $\in$
+\end_inset
+
+NP
+\end_layout
+
+\begin_layout Subsection
+Show that DOUBLE-HAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{\ensuremath{\text{HAMPATH}\leq_{p}}DOUBLE-HAMPATH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To construct this, if 
+\begin_inset Formula $\left\langle G,s,t\right\rangle $
+\end_inset
+
+ is an input to HAMPATH, we must map it to an input 
+\begin_inset Formula $\left\langle G^{\prime},s^{\prime},t^{\prime}\right\rangle $
+\end_inset
+
+ to DOUBLE-HAMPATH
+\end_layout
+
+\begin_layout Standard
+The way we will do this is with a 
+\begin_inset Quotes eld
+\end_inset
+
+decision widget
+\begin_inset Quotes erd
+\end_inset
+
+: Add 3 vertices: 
+\begin_inset Formula $x,y,s_{t}$
+\end_inset
+
+.
+ Add two edges, one from s to x, one from s to y.
+ Next, add an edge from x to y and an edge from y to x.
+ Then, add an edge from x and y to 
+\begin_inset Formula $s_{t}$
+\end_inset
+
+.
+ Now, move all inbound and outbound edges that s has to 
+\begin_inset Formula $s_{t}$
+\end_inset
+
+.
+ This looks as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "graphics/double-hampath.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, let 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ equal our graph with this new widget, let 
+\begin_inset Formula $s^{\prime}=s$
+\end_inset
+
+ and 
+\begin_inset Formula $t^{\prime}=t$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, assume that 
+\begin_inset Formula $\left\langle G,s,t\right\rangle \in$
+\end_inset
+
+ HAMPATH.
+ Because of the nature of our decision widget, we can either go up then
+ down through it, or down then up(zig then zag or zag then zig?).
+ Then, the rest of the path remains the same since the rest of the graph
+ remains untouched.
+ Since the rest of the graph contains a hampath, this implies that 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ contains two hampaths from 
+\begin_inset Formula $s^{\prime}$
+\end_inset
+
+ to 
+\begin_inset Formula $t^{\prime}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Now, using the contrapositive, assume that 
+\begin_inset Formula $\left\langle G,s,t\right\rangle \not\in\text{HAMPATH}$
+\end_inset
+
+.
+ This implies that no hamiltonian path exists from s to t.
+ This implies that no hamiltonian path exists from 
+\begin_inset Formula $s_{t}$
+\end_inset
+
+ to 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Therefore, there is no hamiltonian path from 
+\begin_inset Formula $s=s^{\prime}$
+\end_inset
+
+ to 
+\begin_inset Formula $t=t^{\prime}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ contains no double-hampath from 
+\begin_inset Formula $s^{\prime}$
+\end_inset
+
+ to 
+\begin_inset Formula $t^{\prime}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Find a non-decision version
+\end_layout
+
 \end_body
 \end_document
