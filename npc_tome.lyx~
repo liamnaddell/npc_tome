@@ -1224,6 +1224,290 @@ filename "graphics/hampath.tex"
 \end_layout
 
 \begin_layout Section
+SUBSET-SUM is NP-Complete
+\end_layout
+
+\begin_layout Subsection
+Proof that SUBSET-SUM
+\begin_inset Formula $\in$
+\end_inset
+
+ NP
+\end_layout
+
+\begin_layout Subsection
+Proof that SUBSET-SUM is NP-Hard
+\end_layout
+
+\begin_layout Standard
+WTS: 
+\begin_inset Formula $\text{3SAT\ensuremath{\leq_{p}}SUBSET-SUM}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The construction
+\end_layout
+
+\begin_layout Standard
+Given a 3-cnf 
+\begin_inset Formula $\phi$
+\end_inset
+
+, an input to 3SAT, with l variables, and i clauses.
+ Make a table as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{c|cccc|cccc}
+ & x_{1} & x_{2} & \cdots & x_{l} & c_{1} & c_{2} & \cdots & c_{i}\\
+t_{1} & 1 & 0 & 0 & 0\\
+f_{1} & 1 & 0 & 0 & 0\\
+t_{2} & 0 & 1 & 0 & 0\\
+f_{2} & 0 & 1 & 0 & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+t_{l} &  &  &  & 1\\
+f_{l} &  &  &  & 1\\
+\hline t & 1 & 1 & \cdots & 1\\
+ &  &  &  & \\
+ &  &  &  & \\
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We are going to make the rows our subset, and the row t will be our sum.
+ If row 
+\begin_inset Formula $t_{1}$
+\end_inset
+
+ is selected then make variable 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ true, and if row 
+\begin_inset Formula $f_{1}$
+\end_inset
+
+ is selected, make variable 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ false.
+ Since t contains a 1 in each column with a variable, this means that every
+ variable can only be assigned true or false.
+ 
+\end_layout
+
+\begin_layout Standard
+Next, modify the table.
+ If 
+\begin_inset Formula $t_{j}$
+\end_inset
+
+ is selected, mark each clause in the row 
+\begin_inset Formula $t_{j}$
+\end_inset
+
+ 1 if 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ appears in the clause like so:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{c|cccc|cccc}
+ & x_{1} & x_{2} & \cdots & x_{l} & c_{1} & c_{2} & \cdots & c_{i}\\
+t_{1} & 1 & 0 & 0 & 0 & 1 & 0 & \cdots & 0\\
+f_{1} & 1 & 0 & 0 & 0 & 0 & 1 & \cdots & 1\\
+t_{2} & 0 & 1 & 0 & 0 &  & \vdots\\
+f_{2} & 0 & 1 & 0 & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+t_{l} &  &  &  & 1\\
+f_{l} &  &  &  & 1\\
+\hline t & 1 & 1 & \cdots & 1\\
+ &  &  &  & \\
+ &  &  &  & \\
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, we have to ensure that at least 1 variable in each clause is marked
+ as true.
+ The problem is that one clause, two clauses, and three clauses could be
+ true.
+ The way we control for this is adding two extra rows per clause, which
+ both contain a 1, like so: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{c|cccc|cccc}
+ & x_{1} & x_{2} & \cdots & x_{l} & c_{1} & c_{2} & \cdots & c_{i}\\
+t_{1} & 1 & 0 & 0 & 0 & 1 & 0 & \cdots & 0\\
+f_{1} & 1 & 0 & 0 & 0 & 0 & 1 & \cdots & 1\\
+t_{2} & 0 & 1 & 0 & 0 &  & \vdots\\
+f_{2} & 0 & 1 & 0 & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+\vdots & 0 & 0 & \vdots & 0\\
+t_{l} &  &  &  & 1\\
+f_{l} &  &  &  & 1 & 1 & 0 & \cdots & 1\\
+\hline h_{1} & 0 & 0 & 0 & 0 & 1\\
+g_{1} & 0 & 0 & 0 & 0 & 1\\
+h_{2} & 0 & 0 & \vdots & 0 &  & 1\\
+g_{2} & 0 & 0 & \cdots & 0 &  & 1\\
+h_{3} & 0 & 0 & 0 & 0 &  &  & \cdots\\
+g_{3} & 0 & 0 & 0 & 0 &  &  & \cdots\\
+h_{4} & 0 & 0 & 0 & 0 &  &  &  & 1\\
+g_{4} & 0 & 0 & 0 & 0 &  &  &  & 1\\
+\hline t & 1 & 1 & \cdots & 1 & 3 & 3 & 3 & 3\\
+ &  &  &  & \\
+ &  &  &  & \\
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, let t be the t row, and the subset S be all the other rows of the table.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Given that 
+\begin_inset Formula $\phi\in\text{3SAT}$
+\end_inset
+
+, show 
+\begin_inset Formula $\left\langle S,t\right\rangle \in\text{SUBSET-SUM}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is in 3SAT, that means there is a truth assignment 
+\begin_inset Formula $\tau$
+\end_inset
+
+ which satisfies 
+\begin_inset Formula $\phi$
+\end_inset
+
+.
+ This 
+\begin_inset Formula $\phi$
+\end_inset
+
+ must also satisfy at least one variable in each clause.
+ By the above construction, that implies that there must be some subset
+ which sums to t.
+\end_layout
+
+\begin_layout Subsubsection
+Given that 
+\begin_inset Formula $\left\langle S,t\right\rangle \in\text{SUBSET-SUM}$
+\end_inset
+
+, show 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We know S has some subset which sums to t.
+ Using the variable construction, we know this subset must select either
+ 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+ or 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ for 
+\begin_inset Formula $1\leq i\leq l$
+\end_inset
+
+, where l is the number of rows (variables) in this section of the construction.
+ Let our truth assignment 
+\begin_inset Formula $\tau$
+\end_inset
+
+ assign true and false accordingly (true if 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+ is selected, false if 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ is selected).
+ In the second quadrent of the table, the clause section, if there is a
+ subset sum which sums to t, then that subset must contain at least a 1
+ for each clause.
+ By the above construction, this implies 
+\begin_inset Formula $\tau$
+\end_inset
+
+ sets each clause to true.
+ This implies that 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is satisfiable, which implies that 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Justification that this reduction is polytime.
+ 
+\end_layout
+
+\begin_layout Standard
+To constructing the structure (dimensions and layout) of the table, which
+ is assumed to be constant time, filling out the variables section takes
+ 
+\begin_inset Formula $\mathcal{O}\left(l\right)$
+\end_inset
+
+ time, and filling out the clause section takes 
+\begin_inset Formula $3\cdot\mathcal{O}\left(l\right)$
+\end_inset
+
+ time, where l is the number of variables.
+ If n is the number of variables in 
+\begin_inset Formula $\phi$
+\end_inset
+
+, this reduction takes 
+\begin_inset Formula $\mathcal{O}\left(l\right)$
+\end_inset
+
+ time, which is polytime.
+ 
+\end_layout
+
+\begin_layout Section
 Assignment question: 2b
 \end_layout
 
@@ -1573,6 +1857,10 @@ Now, using the contrapositive, assume that
 
 .
  
+\end_layout
+
+\begin_layout Standard
+WHY POLYTIME
 \end_layout
 
 \begin_layout Subsection
