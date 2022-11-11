@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+
+\tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}
+\tikzset{edge/.style = {-,> = latex'}}
+% vertices
+\node[vertex] (t) at  (5,5) {$F$};
+\node[vertex] (f) at  (7,5) {$T$};
+\node[vertex] (r) at  (6,8) {$R$};
+\node[vertex] (x0)  at (0,0) {$x_0$};
+\node[vertex] (bx0) at (2.5,0) {$\bar x_0$};
+\node[vertex] (x1)  at (0,2.5) {$x_1$};
+\node[vertex] (bx1) at (2.5,2.5) {$\bar x_1$};
+%edges
+\draw[edge] (t) to (f);
+\draw[edge] (f) to (r);
+\draw[edge] (r) to (t);
+%variable edges
+\draw[edge] (x0) to (bx0);
+\draw[edge] (x1) to (bx1);
+%palette edges
+\draw[edge] (r) to[bend right] (x0);
+\draw[edge] (r) to[bend right] (bx0);
+\draw[edge] (r) to[bend right] (x1);
+\draw[edge] (r) to[bend right] (bx1);
+
+\end{tikzpicture}						

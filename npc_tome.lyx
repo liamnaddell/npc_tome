@@ -115,6 +115,454 @@ The time it takes to run a verifier is measured in terms of the length of
  In this system, c is the certificate
 \end_layout
 
+\begin_layout Subsection
+The Big Cheng 5: Proving a problem in NP the right way!
+\end_layout
+
+\begin_layout Enumerate
+Show that Q is a decision problem.
+ This is usually quite obvious from the way Q’s question is asked, so merely
+ stating that Q is a decision problem will often be sufficient.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Describe what a certificate would be for a Yes instance of Q.
+ Most of the time this is also quite obvious from the way Q’s question is
+ asked.
+ If the question asks, “is there a blah?”, (i.e., it essentially asks for
+ the existence of something), then usually the certificate is simply the
+ blah (the thing about whose existence is asked by the question).
+ 
+\end_layout
+
+\begin_layout Enumerate
+Explain why the certificate is polysize with respect to the input size.
+ Frequently the certificate is no larger than the input.
+ In such cases the certificate size is at most linear with respect to the
+ input size.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Describe what a verification algorthm would do.
+ The certificate is commonly something that satisfies some set of criteria.
+ So the algorithm needs to check (or verify) that these criteria are satisfied.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Explain why the verification algorithm runs in polytime.
+ Typically we would only need to give running times for the checks that
+ the algorithm performs
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is the official, immutable way to show that a problem is in NP, this
+ is the only way to do it, and there are no other ways.
+ We will henceforth follow them religiously.
+\end_layout
+
+\begin_layout Section
+What is NP closed under? (Assignment 3 Q2 solution)
+\end_layout
+
+\begin_layout Subsection
+Prove that NP is closed under union, intersection, concaterntaion, and Kleene
+ star
+\end_layout
+
+\begin_layout Subsubsection
+Let 
+\begin_inset Formula $A,B\in\text{NP}$
+\end_inset
+
+, show 
+\begin_inset Formula $A\cup B\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If A,B are in NP, then A and B have polynomial time verifiers verifyA and
+ verifyB.
+ Let L=
+\begin_inset Formula $A\cup B$
+\end_inset
+
+.
+ Now, we wish to argue that 
+\begin_inset Formula $L\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Since A and B are decision questions, asking if an input is in L must also
+ be a decision question
+\end_layout
+
+\begin_layout Enumerate
+A certificate would be 
+\begin_inset Formula $\left\langle c_{1},c_{2}\right\rangle $
+\end_inset
+
+ where 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ is a certificate for verifyA, and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ is a certificate for verifyB
+\end_layout
+
+\begin_layout Enumerate
+The certificate would be polysize with respect to input size of L since
+ 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ are polysize with respect to the inputs to A and B.
+ 
+\end_layout
+
+\begin_layout Enumerate
+A verification algorithm would pass the input to verifyA and verifyB with
+ the appropriate certificates.
+ If either verifyA or verifyB returns true, then return true, else false
+\end_layout
+
+\begin_layout Enumerate
+Our algorithm is polytime since it only runs two polytime algorithms, verifyA
+ and verifyB
+\end_layout
+
+\begin_layout Subsubsection
+WTS: Let 
+\begin_inset Formula $A,B\in\text{NP}$
+\end_inset
+
+, show 
+\begin_inset Formula $A\cap B\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If A,B are in NP, then A and B have polynomial time verifiers verifyA and
+ verifyB.
+ Let L=
+\begin_inset Formula $A\cap B$
+\end_inset
+
+.
+ Now, we wish to argue that 
+\begin_inset Formula $L\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Since A and B are decision questions, asking if an input is in L must also
+ be a decision question
+\end_layout
+
+\begin_layout Enumerate
+A certificate would be 
+\begin_inset Formula $\left\langle c_{1},c_{2}\right\rangle $
+\end_inset
+
+ where 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ is a certificate for verifyA, and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ is a certificate for verifyB
+\end_layout
+
+\begin_layout Enumerate
+The certificate would be polysize with respect to input size of L since
+ 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ are polysize with respect to the inputs to A and B.
+ 
+\end_layout
+
+\begin_layout Enumerate
+A verification algorithm would pass the input to verifyA and verifyB with
+ the appropriate certificates.
+ If verifyA and verifyB returns true, then return true, else false
+\end_layout
+
+\begin_layout Enumerate
+Our algorithm is polytime since it only runs two polytime algorithms, verifyA
+ and verifyB
+\end_layout
+
+\begin_layout Subsubsection
+WTS: Let 
+\begin_inset Formula $A,B\in\text{NP}$
+\end_inset
+
+, show 
+\begin_inset Formula $AB\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If A,B are in NP, then A and B have polynomial time verifiers verifyA and
+ verifyB.
+ Let L=
+\begin_inset Formula $AB$
+\end_inset
+
+.
+ Now, we wish to argue that 
+\begin_inset Formula $L\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Since A and B are decision questions, asking if an input is in L must also
+ be a decision question
+\end_layout
+
+\begin_layout Enumerate
+A certificate would be 
+\begin_inset Formula $\left\langle c_{1},c_{2}\right\rangle $
+\end_inset
+
+ where 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ is a certificate for verifyA, and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ is a certificate for verifyB
+\end_layout
+
+\begin_layout Enumerate
+The certificate would be polysize with respect to input size of L since
+ 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ are polysize with respect to the inputs to A and B.
+ 
+\end_layout
+
+\begin_layout Enumerate
+VerifyL
+\end_layout
+
+\begin_layout Enumerate
+If n=
+\begin_inset Formula $\left|w\right|$
+\end_inset
+
+, then, worst case, verifyA will be run n times, and verifyB will be run
+ n times.
+ This is n times some polynomial, which itself, is a polynomial.
+ Therefore, this algorithm runs in polytime.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+VerifyL
+\begin_inset Formula $\left\langle w,\left\langle c_{1},c_{2}\right\rangle \right\rangle :$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Verse
+for 
+\begin_inset Formula $i=0\to\left|w\right|:$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Verse
+if verifyA
+\begin_inset Formula $(w[0..i],c_{1})$
+\end_inset
+
+ and verifyB
+\begin_inset Formula $\left(w[i..],c_{2}\right)$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Verse
+return true;
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Verse
+return false;
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+WTS: Let 
+\begin_inset Formula $A\in\text{NP}$
+\end_inset
+
+, show 
+\begin_inset Formula $A^{\star}\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If A is in NP, then A has a polynomial time verifier verifyA.
+ Let L=
+\begin_inset Formula $A^{\star}$
+\end_inset
+
+.
+ Now, we wish to argue that 
+\begin_inset Formula $L\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+This is a decision problem
+\end_layout
+
+\begin_layout Enumerate
+A certificate 
+\begin_inset Formula $\left\langle c\right\rangle $
+\end_inset
+
+ would be the same as a certificate to A
+\end_layout
+
+\begin_layout Enumerate
+The certificate is polysize with respect to input size since its polysize
+ with respect to inputs to A, which are less than or equal to inputs to
+ L
+\end_layout
+
+\begin_layout Enumerate
+A verifier would iterate through the input, running verifyA on 
+\begin_inset Formula $\left\langle w\left[0..i\right],c\right\rangle $
+\end_inset
+
+.
+ If verifyA returns true, return true, else false
+\end_layout
+
+\begin_layout Enumerate
+This is polytime with respect to 
+\begin_inset Formula $\left|w\right|=n$
+\end_inset
+
+, since the input is of size n, and verifyA, which is polynomial, will get
+ run n times, which is polytime
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discuss the closure of NP under complement and homomorphisms
+\end_layout
+
+\begin_layout Standard
+Define a new language operation and prove whether NP is closed under it
+\end_layout
+
+\begin_layout Standard
+Is NP closed under 
+\begin_inset Quotes eld
+\end_inset
+
+inverses
+\begin_inset Quotes erd
+\end_inset
+
+ of the above operations, so if 
+\begin_inset Formula $L_{1}\cup L_{2}\in\text{NP}$
+\end_inset
+
+, Does it follow that 
+\begin_inset Formula $L_{2}\in\text{NP}$
+\end_inset
+
+? 
+\end_layout
+
+\begin_layout Standard
+What about all the others?
+\end_layout
+
+\begin_layout Standard
+Is co-NP closed under any of the above language operations?
+\end_layout
+
 \begin_layout Section
 NP-COMPLETENESS
 \end_layout
@@ -1526,66 +1974,10 @@ Input: A graph G
 \begin_layout Standard
 Question: Is there a coloring of G with 3 colors such that no two adjacent
  vertices share the same color.
- 
 \end_layout
 
 \begin_layout Subsection
-The Big Cheng 5: Proving a problem in NP the right way!
-\end_layout
-
-\begin_layout Enumerate
-Show that Q is a decision problem.
- This is usually quite obvious from the way Q’s question is asked, so merely
- stating that Q is a decision problem will often be sufficient.
- 
-\end_layout
-
-\begin_layout Enumerate
-Describe what a certificate would be for a Yes instance of Q.
- Most of the time this is also quite obvious from the way Q’s question is
- asked.
- If the question asks, “is there a blah?”, (i.e., it essentially asks for
- the existence of something), then usually the certificate is simply the
- blah (the thing about whose existence is asked by the question).
- 
-\end_layout
-
-\begin_layout Enumerate
-Explain why the certificate is polysize with respect to the input size.
- Frequently the certificate is no larger than the input.
- In such cases the certificate size is at most linear with respect to the
- input size.
- 
-\end_layout
-
-\begin_layout Enumerate
-Describe what a verification algorthm would do.
- The certificate is commonly something that satisfies some set of criteria.
- So the algorithm needs to check (or verify) that these criteria are satisfied.
- 
-\end_layout
-
-\begin_layout Enumerate
-Explain why the verification algorithm runs in polytime.
- Typically we would only need to give running times for the checks that
- the algorithm performs
-\end_layout
-
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This is the official, immutable way to show that a problem is in NP, this
- is the only way to do it, and there are no other ways.
- We will henceforth follow them religiously.
-\end_layout
-
-\begin_layout Subsection
-Following the leader to prove that 3-COL is in NP
+Proving that 3-COL is in NP
 \end_layout
 
 \begin_layout Standard
@@ -1622,6 +2014,115 @@ Following the leader to prove that 3-COL is in NP
 \end_inset
 
  time
+\end_layout
+
+\begin_layout Subsection
+Showing that 3-COL is NP-Hard
+\end_layout
+
+\begin_layout Standard
+WTS: 3SAT
+\begin_inset Formula $\leq_{p}$
+\end_inset
+
+3COL
+\end_layout
+
+\begin_layout Subsubsection
+The construction
+\end_layout
+
+\begin_layout Standard
+We need three core technologies to complete this reduction: The Variable
+ Widget, the Clause Widget, and the Palette, as well as our three colors:
+ True, False, and Red.
+\end_layout
+
+\begin_layout Standard
+First, the palette looks like:
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "graphics/palette_widget.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order for this graph to be 3-colorable, this palette widget must have
+ 3 distinct colors on each vertex.
+ With out loss of generality, let these vertexes be named True, False, and
+ Red, with the assumption that a 3-coloring of this graph will color these
+ vertices approprietly.
+ 
+\end_layout
+
+\begin_layout Standard
+Next is the variable widget: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "graphics/variable_widget.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This widget assures that variables can only be assigned the true color or
+ the false color (which will correspond with their truth assignments).
+ In addition, these widgets assure that a variable and its complement cannot
+ be assigned to the same color.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, and most complicated: The clause widget: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "graphics/clause_widget.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Assume 
+\begin_inset Formula $\left\langle \phi\right\rangle \in\text{3SAT}$
+\end_inset
+
+, show 
+\begin_inset Formula $\left\langle G\right\rangle \in$
+\end_inset
+
+3COL
+\end_layout
+
+\begin_layout Subsubsection
+Assume 
+\begin_inset Formula $\left\langle G\right\rangle \in$
+\end_inset
+
+3COL, show 
+\begin_inset Formula $\left\langle \phi\right\rangle \in$
+\end_inset
+
+3SAT
+\end_layout
+
+\begin_layout Subsubsection
+The reduction is polytime
 \end_layout
 
 \begin_layout Section

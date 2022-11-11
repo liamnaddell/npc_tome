@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+
+\tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}
+\tikzset{edge/.style = {-,> = latex'}}
+%clause widget literals
+\node[vertex] (x2) at (0,0) {$x_2$};
+\node[vertex] (x1) at (0,4) {$x_1$};
+\node[vertex] (x0) at (0,8) {$x_0$};
+%clause widget or1
+\node[vertex] (o0) at (2,0) {$or0$};
+\node[vertex] (o1) at (2,4) {$or1$};
+\node[vertex] (o2) at (4,2) {$or2$};
+%clause widget or2
+\node[vertex] (or0) at (6,4) {$orr0$};
+\node[vertex] (or1) at (6,8) {$orr1$};
+% palette
+\node[vertex] (t) at (9,6) {$T$};
+\node[vertex] (f) at (11,6) {$F$};
+\node[vertex] (r) at (10,10) {$R$};
+%palette
+\draw[edge] (t) to (f);
+\draw[edge] (f) to (r);
+\draw[edge] (r) to (t);
+%2nd or edges
+\draw[edge] (or0) to (t);
+\draw[edge] (or1) to (t);
+\draw[edge] (or0) to (or1);
+%or edges
+\draw[edge] (o0) to (o1);
+\draw[edge] (o1) to (o2);
+\draw[edge] (o2) to (o0);
+%vertex edges
+\draw[edge] (x0) to (or1);
+\draw[edge] (x1) to (o1);
+\draw[edge] (x2) to (o0);
+%ipc
+\draw[edge] (o2) to (or0);
+
+%red connect
+\draw[edge] (r) to[bend right] (x0);
+\draw[edge] (r) to[bend right] (x1);
+\draw[edge] (r) to[bend right] (x2);
+
+
+\end{tikzpicture}						
