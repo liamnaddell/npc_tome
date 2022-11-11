@@ -2053,7 +2053,48 @@ filename "graphics/palette_widget.tex"
 \end_layout
 
 \begin_layout Standard
-We don't know what colors on the palette widget are???
+In order for this graph to be 3-colorable, this palette widget must have
+ 3 distinct colors on each vertex.
+ With out loss of generality, let these vertexes be named True, False, and
+ Red, with the assumption that a 3-coloring of this graph will color these
+ vertices approprietly.
+ 
+\end_layout
+
+\begin_layout Standard
+Next is the variable widget: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "graphics/variable_widget.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This widget assures that variables can only be assigned the true color or
+ the false color (which will correspond with their truth assignments).
+ In addition, these widgets assure that a variable and its complement cannot
+ be assigned to the same color.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, and most complicated: The clause widget: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "graphics/clause_widget.tex"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
