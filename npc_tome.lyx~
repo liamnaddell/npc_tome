@@ -2485,5 +2485,182 @@ WHY POLYTIME
 Find a non-decision version
 \end_layout
 
+\begin_layout Section
+COL is NP-complete
+\end_layout
+
+\begin_layout Standard
+COL=
+\begin_inset Formula $\left\{ \left\langle G,k\right\rangle \vert\text{ the nodes in G can be colored with k colors st no two nodes joined by an edge have the same color}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Proof that COL
+\begin_inset Formula $\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Col is a decision problem since its a language
+\end_layout
+
+\begin_layout Enumerate
+A certificate to a verifier for COL would be a k-coloring of each node in
+ G
+\end_layout
+
+\begin_layout Enumerate
+The certificate would be polysize with respect to 
+\begin_inset Formula $\left\langle G,k\right\rangle $
+\end_inset
+
+ since it would have one entry per vertex in G, which implies linearity
+\end_layout
+
+\begin_layout Enumerate
+A verifier would check that the coloring was valid by iterating through
+ every vertex and checking that its neighbors are not the same color
+\end_layout
+
+\begin_layout Enumerate
+The verifier would be polytime because, worst case, for a fully connected
+ graph, the verifier would have to check 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ edges total.
+ This is polytime
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Proof that COL is NP-Complete
+\end_layout
+
+\begin_layout Standard
+WTS: 3COL
+\begin_inset Formula $\leq_{P}$
+\end_inset
+
+ COL
+\end_layout
+
+\begin_layout Subsubsection
+The construction
+\end_layout
+
+\begin_layout Standard
+First, the trivial cases need to be put out of their misery: The case when
+ k=1 is trivial: Unless the graph is empty or 1-vertex, it is false.
+ And cases where k<1 are not worth considering.
+ If k=2, this is the same thing as saying that every node has only two or
+ less vertices leading out of it.
+ This is polytime and not worth further consideration.
+\end_layout
+
+\begin_layout Standard
+Now, building on the ideas in a previous piazza post, we are going to do
+ our construction by first picking a 
+\begin_inset Formula $k>2$
+\end_inset
+
+ out of a magic hat.
+ Now, modulo k by the number of vertices.
+ Then, let 
+\begin_inset Formula $j=k-3$
+\end_inset
+
+.
+ Now, add j new vertices, and connect the new vertices to every node in
+ the graph.
+ This will make it so that j of our k colors are taken, and the potentially-3-co
+lorable graph in the middle must be 3-colorable for our input to be in COL
+\end_layout
+
+\begin_layout Subsubsection
+The forward direction
+\end_layout
+
+\begin_layout Standard
+Assuming that 
+\begin_inset Formula $G\in\text{3COL}$
+\end_inset
+
+, let 
+\begin_inset Formula $\left\langle G^{\prime},k\right\rangle =f(G)$
+\end_inset
+
+.
+ Since G is a subgraph of 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ and G is 3-colorable, we know that 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ is k-colorable since we can assign the other j colors to j added nodes.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The reverse direction
+\end_layout
+
+\begin_layout Standard
+Assuming that 
+\begin_inset Formula $G\not\in\text{3COL}$
+\end_inset
+
+, let 
+\begin_inset Formula $\left\langle G^{\prime},k\right\rangle =f(G)$
+\end_inset
+
+.
+ We know G is not 3-colorable so we must use extra colors to color in G.
+ This implies that one of our j nodes must have the same color as a vertex
+ in G.
+ This implies that 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ is not k-colorable
+\end_layout
+
+\begin_layout Subsubsection
+Justification for polytimeness
+\end_layout
+
+\begin_layout Standard
+This construction is polytime because pulling a magic number out of a hat
+ is polytime if you hook up a turing machine to some uranium-235 as a hardware
+ RNG source.
+ Then, adding 
+\begin_inset Formula $\mathcal{O}\left(k\right)$
+\end_inset
+
+ edges is 
+\begin_inset Formula $n\cdot k$
+\end_inset
+
+ time, which is 
+\begin_inset Formula $n^{2}$
+\end_inset
+
+ time since k is bound by n.
+ Therefore, our construction is polytime
+\end_layout
+
 \end_body
 \end_document
