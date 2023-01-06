@@ -1,4 +1,4 @@
-WTS: 3SAT $\leq_p$ HAMPATH
+WTS:\ 3SAT $\leq_p$ HAMPATH
 
 
 To do this, we need to take 3-cnf formulas $\phi$ and turn them into paths which contain a hamiltonian path if and only if $\phi$ is satisfiable.
@@ -94,7 +94,7 @@ How this works: One can only assign 1 value (left/right or true/false) to each v
 
 \subsubsection{If $\left<\phi\right>\in\text{3SAT}$}
 
-Then $\phi$ has a satisfiable truth assignment $\tau$. Following the variable widget convention, we will go left/right according to what the truth assignment tells us to do. When we encounter the option to visit a clause, we will take it unless the clause has already been satisfied (i.e. visited). Since this formula is satisfiable, all clause nodes will be hit, as well as the top and bottom of each variable widget, and all nodes inbetween. This implies that $\left<G,s,t\right>\in\text{HAMPATH}$.
+Then $\phi$ has a satisfiable truth assignment $\tau$. Following the variable widget convention, we will go left/right according to what the truth assignment tells us to do. When we encounter the option to visit a clause, we will take it unless the clause has already been satisfied (i\.e\. visited). Since this formula is satisfiable, all clause nodes will be hit, as well as the top and bottom of each variable widget, and all nodes inbetween. This implies that $\left<G,s,t\right>\in\text{HAMPATH}$.
 
 \subsubsection{If $\left<G,s,t\right>\in\text{HAMPATH}$}
 

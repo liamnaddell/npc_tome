@@ -87,6 +87,1239 @@
 \begin_body
 
 \begin_layout Section
+What is the point of this document?
+\end_layout
+
+\begin_layout Standard
+This is supposed to serve as a reference guide for C63.
+ When I took the course over the fall 2022 with Nick Cheng, I found it difficult
+ to keep track of all the concepts and how they tie together.
+ I found C63 to require EXTREME competence at the early material to continue
+ succeeding in the course.
+ I.e.
+ If you don't understand the intricacies of turing machines (configurations),
+ you will struggle the P, NP, and PSPACE language classes.
+ Additionally, C63 requires a 
+\series bold
+HUGE 
+\series default
+mastery of B36 material.
+ Many, many people (i.e.
+ me) lost valuable points on the midterms and finals because of lacking
+ B36 skills.
+ I did WELL in B36 too.
+ Additionally, the book we used (Sisper) was overly long winded and did
+ a poor job of connecting the ideas it contains together in a coherent story.
+ The point of this document is to prove most of the claims in the course
+ and to document its proof techniques, that way it can serve as a reference
+ for C63 topics.
+ Sisper also leaves rigorous definitions as exercises to the reader.
+\end_layout
+
+\begin_layout Subsection
+Credits:
+\end_layout
+
+\begin_layout Standard
+All the ideas in this document other than my advice come from Michael Sisper
+ and Nick Cheng, most of the proofs are copied from Sisper's book.
+ 
+\end_layout
+
+\begin_layout Subsection
+What B36 skills should you review?
+\end_layout
+
+\begin_layout Itemize
+Languages in b36 were defined using D/NFSA's, and PDA's, in this course,
+ languages are defined similarly on turing machines, i.e.
+ 
+\begin_inset Formula $L=\mathcal{L}\left(M\right)=\left\{ \left\langle w\right\rangle \vert\text{ M is a Turing Machine, }w\in\Sigma^{\star},\text{ M accepts w}\right\} $
+\end_inset
+
+.
+ In plain english, 
+\begin_inset Formula $\mathcal{L}\left(M\right)$
+\end_inset
+
+ is all the strings M accepts.
+ 
+\end_layout
+
+\begin_layout Itemize
+When you are learning about co-NP, make 
+\series bold
+ABSOLUTELY SURE 
+\series default
+you are rock solid on your ability to take the complement of a language,
+ including languages with implications
+\end_layout
+
+\begin_layout Itemize
+Make sure you understand how to take the negation of a qualified boolean
+ formula like 
+\begin_inset Formula $\forall x_{1}\exists x_{2}[\left(x_{1}\vee x_{2}\right)\wedge\left(x_{1}\to x_{2}\right)]$
+\end_inset
+
+, also how to translate english sentences into boolean formulas.
+ Nick Cheng has some additional notes on this topic from B36.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+What is the point of this course?
+\end_layout
+
+\begin_layout Standard
+CSCC63 is fundamentally about classifying languages.
+ The primary language classes are, Decidable, Recognisable, Co-Recognisable,
+ P, NP, co-NP, NP-Complete, PSPACE, and NSPACE.
+ 
+\end_layout
+
+\begin_layout Subsection
+Notation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left\langle x\right\rangle $
+\end_inset
+
+ denotes 
+\begin_inset Quotes eld
+\end_inset
+
+The encoding of x
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Encodings translate mathematical objects like sets into strings which can
+ be fed as inputs to turing machines, or contained in languages as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L=\left\{ \left\langle M,w\right\rangle \vert\text{ M is a Turing Machine, \ensuremath{w\in\Sigma^{\star}}, After running M on w, M accepts }\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+What is a turing machine?
+\end_layout
+
+\begin_layout Standard
+A turing machine is a model of computation.
+ In C63, a Turing Machine will stand in for 
+\begin_inset Quotes eld
+\end_inset
+
+Any algorithm
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Any algorithm can be written as a turing machine, and in similar* running
+ time and similar* memory usage.
+ These are the beefiest automatons possible, no other automaton is more
+ powerful than a turing machine, and the turing machine surpasses the DFSA,
+ NFSA, and PDA in capabilities.
+ This is because the turing machine has access to an infinite, addressable
+ memory space, unlike PDA's which are only capable of addressing memory
+ sequentially through the stack.
+\end_layout
+
+\begin_layout Subsection
+What is it, like specifically though
+\end_layout
+
+\begin_layout Standard
+A Turing Machine 
+\begin_inset Formula $M=\left\langle Q,\Gamma,b,\Sigma,\delta,q_{0},F\right\rangle $
+\end_inset
+
+, with 
+\series bold
+FINITE
+\series default
+ states Q, A 
+\series bold
+FINITE 
+\series default
+set of Symbols which can appear on the tape 
+\begin_inset Formula $\Gamma$
+\end_inset
+
+, an input alphabet 
+\begin_inset Formula $\Sigma\subset\Gamma$
+\end_inset
+
+, a blank symbol 
+\begin_inset Formula $b\in\Gamma$
+\end_inset
+
+, an initial state 
+\begin_inset Formula $q_{0}\in Q$
+\end_inset
+
+, a set of final states 
+\begin_inset Formula $F\subseteq Q$
+\end_inset
+
+, and a 
+\series bold
+FINITE 
+\series default
+transition function 
+\begin_inset Formula $\delta$
+\end_inset
+
+, which encodes the transition labels.
+ The diagrams which describe turing machines encode 
+\begin_inset Formula $\delta$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+A very important note
+\end_layout
+
+\begin_layout Standard
+Turing Machines, by design, are finite machines which encode finite algorithm
+ descriptions.
+ This means that the set of turing machines can be iterated through.
+ Not only that, but turing machine encodings (
+\begin_inset Formula $\left\langle Q,\Gamma,b,\Sigma,\delta,q_{0},F\right\rangle $
+\end_inset
+
+) can be fed to 
+\series bold
+OTHER TURING MACHINES
+\series default
+.
+ This means we can write algorithms which process other algorithms.
+ This is the fundamental proof tool for the course.
+\end_layout
+
+\begin_layout Subsubsection
+Another very important note
+\end_layout
+
+\begin_layout Standard
+Turing machines have 2 possible final states, accepting and rejecting.
+ Unfortunately, turing machines also are able to loop infinitely.
+ It will be proven later in these notes that there is 
+\series bold
+NO GENERAL ALGORITHM
+\series default
+ for determining whether or not a given turing machine will loop on a given
+ input.
+ 
+\end_layout
+
+\begin_layout Part
+How to determine if languages are Recognisable, Decidable, or Co-recognisable.
+ 
+\end_layout
+
+\begin_layout Section
+The first language classifications: Recognisable and Decidable languages
+\end_layout
+
+\begin_layout Subsection
+The definition of recognisability using Enumerators
+\end_layout
+
+\begin_layout Subsubsection
+What's an enumerator?
+\end_layout
+
+\begin_layout Standard
+An enumerator is a special kind of turing machine with two tapes, the work
+ tape, and the print tape.
+ There is also a specialized 
+\begin_inset Quotes eld
+\end_inset
+
+print
+\begin_inset Quotes erd
+\end_inset
+
+ state which will 
+\begin_inset Quotes eld
+\end_inset
+
+print
+\begin_inset Quotes erd
+\end_inset
+
+ the contents of the print tape to an attached theoretical printer.
+ Using this definition, let E be an enumerator, 
+\begin_inset Formula $\mathcal{L}\left(E\right)=\left\{ x\vert\text{x is printed by E at some point in its runtime}\right\} $
+\end_inset
+
+.
+ Note, enumerators can halt or loop forever, this does show up in exam questions
+, enumators may also repeat inputs, this can be useful for lazy algorithm
+ writers.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The actual definition
+\end_layout
+
+\begin_layout Standard
+A language L is recognisable if and only if there exists an enumerator E
+ st 
+\begin_inset Formula $\mathcal{L}\left(E\right)=L$
+\end_inset
+
+.
+ In english, this is written as, 
+\begin_inset Quotes eld
+\end_inset
+
+E enumerates L
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Steps for proving a language is recognisable using enumerators
+\end_layout
+
+\begin_layout Standard
+1.
+ Describe an enumerator E 
+\end_layout
+
+\begin_layout Standard
+2.
+ Prove that every 
+\begin_inset Formula $x\in L$
+\end_inset
+
+ is in 
+\begin_inset Formula $\mathcal{L}\left(E\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+3.
+ Prove that every 
+\begin_inset Formula $x\not\in L$
+\end_inset
+
+ is NOT in 
+\begin_inset Formula $\mathcal{L}\left(E\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The definition of recognisability using regular turing machines
+\end_layout
+
+\begin_layout Standard
+Given a regular turing machine D and an arbitrary language L, D recognises
+ L if and only if
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $w\in L$
+\end_inset
+
+, D accepts w
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $w\not\in L$
+\end_inset
+
+, D does not accept w (D may reject 
+\series bold
+OR LOOP ON 
+\series default
+w)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A recognisable language per this definition is a language where some turing
+ machine recognises it.
+\end_layout
+
+\begin_layout Subsection
+The definition of co-recognisability
+\end_layout
+
+\begin_layout Standard
+Co-recognisable languages are languages who's complements are recognisable.
+ I.e.
+ L is co-recognisable if and only if 
+\begin_inset Formula $\overline{L}$
+\end_inset
+
+ is recognisable
+\end_layout
+
+\begin_layout Subsubsection
+Proving a language L is co-recognisable
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+CAREFULLY, MATICULOUSLY, and EXACTLY 
+\series default
+take the language complement of L to obtain 
+\begin_inset Formula $\overline{L}$
+\end_inset
+
+, this is MUCH HARDER than you think it is
+\end_layout
+
+\begin_layout Enumerate
+Write a recogniser for 
+\begin_inset Formula $\overline{L}$
+\end_inset
+
+ and prove it is a recogniser using any of the techniques above.
+ 
+\end_layout
+
+\begin_layout Subsection
+The definition of decidability
+\end_layout
+
+\begin_layout Standard
+Decidable languages are langauges which are 
+\series bold
+BOTH
+\series default
+ recognisable and co-recognisable.
+ Proving a language L is decidable requires using both proof techniques
+ for recognisability and co-recognisability.
+ 
+\end_layout
+
+\begin_layout Section
+Showing that languages are NOT recognisable or decidable using MAPPING REDUCTION
+S!
+\end_layout
+
+\begin_layout Standard
+The previous section detailed how to prove that a language is recognisable,
+ the issue is that we have no techniques to show languages are NOT recognisable.
+ The techique built in this chapter is called 
+\begin_inset Quotes eld
+\end_inset
+
+The mapping reduction
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This technique is extremely subtle and confusing, with AWFUL NOTATION which
+ I have a whole rant about later in this document.
+ Mapping reductions require us to find un-recognisable languages using other
+ techniques first, which we must do before defining mapping reductions.
+ To find un-recognisable languages, we must first find an un-decidable language.
+ 
+\end_layout
+
+\begin_layout Subsection
+The first undecidable language 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A_{TM}=\left\{ \left\langle M,w\right\rangle \vert\text{ M is a TM and M accepts w}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Showing 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is recognisable
+\end_layout
+
+\begin_layout Quote
+U=
+\begin_inset Quotes erd
+\end_inset
+
+On input 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, where M is a TM and w is a string:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+1.
+ Simulate M on input w
+\end_layout
+
+\begin_layout Quote
+2.
+ If M ever enters its accept state, accepts, else if M enters the reject
+ state, reject
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For completeness, I will also prove that U is a recogniser for 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Given that 
+\begin_inset Formula $\left\langle M,w\right\rangle \in A_{TM}$
+\end_inset
+
+, we know M accepts w.
+ Therefore, U will accept 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given that 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in A_{TM}$
+\end_inset
+
+, we know M does not accept w, therefore U will not accept 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, 
+\begin_inset Formula $\left\langle M,w\right\rangle \in A_{TM}\iff\left\langle M,w\right\rangle \in\mathcal{L}\left(U\right)$
+\end_inset
+
+, showing U recognises 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Showing 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is NOT decidable
+\end_layout
+
+\begin_layout Standard
+Assume that 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is decidable for the purposes of contradiction.
+ 
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is decidable, there must exist a turing machine H which decides 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now, construct a TM D as follows:
+\end_layout
+
+\begin_layout Quote
+D=
+\begin_inset Quotes erd
+\end_inset
+
+On input 
+\begin_inset Formula $\left\langle M\right\rangle $
+\end_inset
+
+, where M is a TM:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+1.
+ Run H on input 
+\begin_inset Formula $\left\langle M,\left\langle M\right\rangle \right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+2.
+ Output the opposite of what H outputs.
+ I.e.
+ if H acc then rej, if H rej, then acc
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+D is constructed to behave as follows: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D\left(\left\langle M\right\rangle \right)=\begin{cases}
+\text{accept} & \text{If M does not accept \left\langle M\right\rangle }\\
+\text{reject} & \text{If M accepts \left\langle M\right\rangle  }
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, we run D on itself, to get
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D\left(\left\langle D\right\rangle \right)=\begin{cases}
+\text{accept} & \text{If D rejects \left\langle D\right\rangle }\\
+\text{reject} & \text{If D accepts \left\langle D\right\rangle  }
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, we have derived a turing machine where running 
+\begin_inset Formula $\left\langle D\right\rangle $
+\end_inset
+
+ on D accepts if D rejects 
+\begin_inset Formula $\left\langle D\right\rangle $
+\end_inset
+
+, and D rejects if D accepts 
+\begin_inset Formula $\left\langle D\right\rangle $
+\end_inset
+
+.
+ This is contradictory behavior, therefore, no such TM D can exist, therefore,
+ 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is NOT decidable.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Final note:
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is recognisable, and 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is not decidable, 
+\begin_inset Formula $\overline{A_{TM}}$
+\end_inset
+
+ must be unrecognisable
+\end_layout
+
+\begin_layout Subsection
+Another undecidable language: HALT
+\end_layout
+
+\begin_layout Standard
+HALT=
+\begin_inset Formula $\left\{ \left\langle M,w\right\rangle \vert\text{ M is a TM and M halts on input w}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Showing HALT is undecidable
+\end_layout
+
+\begin_layout Standard
+Assume for purposes of contradiction that TM R decides HALT, then we can
+ construct a TM S to decide 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Quote
+S= 
+\begin_inset Quotes eld
+\end_inset
+
+On input 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, an encoding of a TM M and a string w:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+1.
+ Run TM R on input 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+2.
+ If R rejects, reject
+\end_layout
+
+\begin_layout Quote
+3.
+ If R accepts, simulate M on w until it halts.
+\end_layout
+
+\begin_layout Quote
+4.
+ If M has accepted, accept; if M has rejected, reject.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, the proof that 
+\begin_inset Formula $\mathcal{L}\left(S\right)=A_{TM}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle M,w\right\rangle \in A_{TM}$
+\end_inset
+
+, then M accepts w.
+ Therefore, R will accept 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, and simulating M on w until halt will result in M accepting w, therefore,
+ 
+\begin_inset Formula $\left\langle M,w\right\rangle \in\mathcal{L}\left(S\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in A_{TM}$
+\end_inset
+
+, then M rejects or loops on w
+\end_layout
+
+\begin_layout Standard
+1.
+ If M rejects w, then R will accept 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, and simulating M on w until halt will result in a rejection, so S rejects,
+ implying 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in S$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2.
+ If M loops on w, R will reject 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, resulting in S rejecting 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+, implying 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in S$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, 
+\begin_inset Formula $\mathcal{L}\left(S\right)=A_{TM}$
+\end_inset
+
+, implying S is a decider for 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+.
+ This implies that 
+\begin_inset Formula $A_{TM}$
+\end_inset
+
+ is decidable.
+ Therefore, by contraction, HALT is undecidable
+\end_layout
+
+\begin_layout Subsubsection
+Showing HALT is recognisable
+\end_layout
+
+\begin_layout Standard
+Here is a recogniser for HALT:
+\end_layout
+
+\begin_layout Quote
+D= 
+\begin_inset Quotes eld
+\end_inset
+
+On input 
+\begin_inset Formula $\left\langle M,w\right\rangle $
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+1.
+ Run M on w
+\end_layout
+
+\begin_layout Quote
+2.
+ accept
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proof that D is a recogniser for HALT.
+ 
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle M,w\right\rangle \in$
+\end_inset
+
+ HALT, then M halts on w, which implies that step 2 of D is reached, and
+ D accepts, therefore, 
+\begin_inset Formula $\left\langle M,w\right\rangle \in\mathcal{L}\left(D\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in$
+\end_inset
+
+ HALT, then M loops on w, which implies that step 2 is never reached, so
+ D does not accept, therefore, 
+\begin_inset Formula $\left\langle M,w\right\rangle \not\in\mathcal{L}\left(D\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, 
+\begin_inset Formula $\mathcal{L}\left(D\right)=$
+\end_inset
+
+HALT
+\end_layout
+
+\begin_layout Subsubsection
+Conclusion
+\end_layout
+
+\begin_layout Standard
+HALT is recognisable and co-unrecognisable.
+\end_layout
+
+\begin_layout Subsection
+The definition of a mapping reduction,
+\end_layout
+
+\begin_layout Standard
+Language A is mapping reducable to language B if there is some turing machine
+ F st 
+\begin_inset Formula $w\in A\iff F\left(w\right)\in B$
+\end_inset
+
+.
+ This is written as 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+.
+ Be very careful with this notation, it is extremely confusing.
+\end_layout
+
+\begin_layout Standard
+Note: This definition relies on the concept of using turing machines as
+ functions.
+ 
+\begin_inset Formula $F(w)$
+\end_inset
+
+ is defined as 
+\begin_inset Quotes eld
+\end_inset
+
+Whatever is left on the tape after F halts on w
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note 2: F must not loop on any inputs
+\end_layout
+
+\begin_layout Subsection
+How can mapping reductions be used to prove that languages are not decidable
+ or recognisable?
+\end_layout
+
+\begin_layout Subsubsection
+Proof that 
+\begin_inset Quotes eld
+\end_inset
+
+If 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+ and B is turing-recongisable, then A is turing-recognisable
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let M recognise B, here is a recogniser for A:
+\end_layout
+
+\begin_layout Quote
+N= 
+\begin_inset Quotes eld
+\end_inset
+
+On input w:
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+1.
+ Compute 
+\begin_inset Formula $w^{\prime}=F\left(w\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+2.
+ Run M on input 
+\begin_inset Formula $w^{\prime}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+3.
+ If M accepts, accept, else reject
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here is a proof that N recognises A:
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $w\in A$
+\end_inset
+
+, then 
+\begin_inset Formula $w^{\prime}=F(w)\in B$
+\end_inset
+
+ because of the mapping reduction.
+ Therefore, M accepts 
+\begin_inset Formula $w^{\prime}$
+\end_inset
+
+, and N accepts, therefore 
+\begin_inset Formula $w\in\mathcal{L}\left(N\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $w\not\in A$
+\end_inset
+
+, then 
+\begin_inset Formula $w^{\prime}=F(w)\not\in B$
+\end_inset
+
+ because of the mapping reduction.
+ Therefore, M does not accept 
+\begin_inset Formula $w^{\prime}$
+\end_inset
+
+, and N does not accept, therefore 
+\begin_inset Formula $w\not\in\mathcal{L}\left(N\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, 
+\begin_inset Formula $\mathcal{L}\left(N\right)=A$
+\end_inset
+
+, showing that A is recognisable.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Corollary: If 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+ and A is not Turing-recognisable, then B is not Turing-recognisable
+\end_layout
+
+\begin_layout Standard
+We know that if 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+ and B is turing-recognisable, then A is turing-recognisable.
+ Taking the contraposition, we get
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+If A is not turing-recognisable, then 
+\begin_inset Formula $A\not\leq_{m}B$
+\end_inset
+
+ or B is not turing-recognisable
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, we know 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+ and that A is not turing-recognisable by assumption, therefore, we know
+ that B must not be turing-recognisable using the contraposition'd statement.
+\end_layout
+
+\begin_layout Standard
+Therefore, If 
+\begin_inset Formula $A\leq_{m}B$
+\end_inset
+
+ and A is not turing-recognisable, then B is not turing-recognisable
+\end_layout
+
+\begin_layout Subsubsection
+How to use mapping reductions to prove that languages are not decidable
+ or recognisable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Nick Cheng additional notes"
+target "https://www.utsc.utoronto.ca/~nick/cscC63/additional-notes/mapping.pdf"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Classifying DECIDABLE langauges as P or NP
+\end_layout
+
+\begin_layout Standard
+The previous part focused on which lanagues (i.e.
+ algorithms) are can actually be run on computers.
+ This part focuses on what time those algorithms will take to compute.
+ Note: henceforth, we will 
+\series bold
+ONLY DEAL WITH DECIDABLE LANGUAGES.
+ UNDECIDABLE LANGUAGES HAVE NO TIME COMPLEXITY AS P AND NP ARE SUBSETS OF
+ THE DECIDABLE LANGUAGES.
+ 
+\end_layout
+
+\begin_layout Section
+What is P?
+\end_layout
+
+\begin_layout Standard
+P is the class of languages which have polynomial time solvers
+\end_layout
+
+\begin_layout Subsection
+What's a polytime solver?
+\end_layout
+
+\begin_layout Standard
+A polytime solver for language L is a decider S, which runs in 
+\begin_inset Formula $\mathcal{O}\left(n^{k}\right)$
+\end_inset
+
+ time for some constant k, where 
+\begin_inset Formula $n=\left|w\right|$
+\end_inset
+
+, forall 
+\begin_inset Formula $w\in L$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+In english pls?
+\end_layout
+
+\begin_layout Standard
+If L is in P, then there is some decider for L which runs in polynomial
+ time.
+\end_layout
+
+\begin_layout Section
 What is NP?
 \end_layout
 
@@ -103,7 +1336,7 @@ A verifier for a language A is an algorithm V where
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A=\left\{ w|\text{ V accepts \left\langle w,c\right\rangle for some string c }\right\} $
+\begin_inset Formula $A=\left\{ w|\text{ V accepts \left\langle w,c\right\rangle  for some string c }\right\} $
 \end_inset
 
 
@@ -532,10 +1765,43 @@ Discuss the closure of NP under complement and homomorphisms
 \end_layout
 
 \begin_layout Standard
+NO
+\end_layout
+
+\begin_layout Subsection
 Define a new language operation and prove whether NP is closed under it
 \end_layout
 
 \begin_layout Standard
+My new language operation is 
+\begin_inset Formula $\circleddash\left(A\right)$
+\end_inset
+
+, which removes every odd* element of A from the set.
+ 
+\end_layout
+
+\begin_layout Standard
+NP is NOT closed under 
+\begin_inset Formula $\circleddash$
+\end_inset
+
+.
+ Consider a language where the even elements are 
+\begin_inset Formula $\left\{ 1\right\} $
+\end_inset
+
+ and the odd elements are members of CLIQUE.
+ When the odd elements are removed, the language becomes polytime solvable,
+ but CLIQUE is in NP, and unioning it with another language like 
+\begin_inset Formula $\left\{ 1\right\} $
+\end_inset
+
+ is still NP.
+ 
+\end_layout
+
+\begin_layout Subsection
 Is NP closed under 
 \begin_inset Quotes eld
 \end_inset
@@ -556,10 +1822,93 @@ inverses
 \end_layout
 
 \begin_layout Standard
+No because 
+\begin_inset Formula $\text{CLIQUE}\cup\emptyset$
+\end_inset
+
+ is in NP, but a solver for the empty language is trivial.
+ Therefore, if 
+\begin_inset Formula $L_{1}\cup L_{2}\in\text{NP}$
+\end_inset
+
+, it does not follow that 
+\begin_inset Formula $L_{2}\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 What about all the others?
 \end_layout
 
 \begin_layout Standard
+If 
+\begin_inset Formula $L_{1}\cap L_{2}\in\text{NP}$
+\end_inset
+
+, it does not follow that 
+\begin_inset Formula $L_{2}$
+\end_inset
+
+ is in NP since 
+\begin_inset Formula $L_{2}$
+\end_inset
+
+ could be 
+\begin_inset Formula $\Sigma^{\star}$
+\end_inset
+
+ in which case 
+\begin_inset Formula $L_{1}\cap L_{2}=L_{1}$
+\end_inset
+
+.
+ Specific counterexample, 
+\begin_inset Formula $L_{2}=\Sigma^{\star}$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{1}=\text{CLIQUE}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $L_{1}\cap L_{2}\in\text{NP}$
+\end_inset
+
+, but 
+\begin_inset Formula $L_{2}\not\in\text{NP}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $L_{1}L_{2}\in\text{NP}$
+\end_inset
+
+, it does not follow that 
+\begin_inset Formula $L_{2}\in\text{NP}$
+\end_inset
+
+, since 
+\begin_inset Formula $L_{1}$
+\end_inset
+
+ could be CLIQUE, and 
+\begin_inset Formula $L_{2}$
+\end_inset
+
+ could be 
+\begin_inset Formula $\left\{ \epsilon\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 Is co-NP closed under any of the above language operations?
 \end_layout
 
@@ -1672,6 +3021,148 @@ filename "graphics/hampath.tex"
 \end_layout
 
 \begin_layout Section
+UHAMPATH is NP-Complete
+\end_layout
+
+\begin_layout Standard
+A verifier for UHAMPATH is the same as a verifier for HAMPATH
+\end_layout
+
+\begin_layout Subsection
+UHAMPATH is NP-Hard
+\end_layout
+
+\begin_layout Standard
+UHAMPATH=
+\begin_inset Formula $\left\{ \left\langle G,s,t\right\rangle \vert\text{ G is an undirected graph which contains a hamiltonian path from s to t}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We are going to reduce from HAMPATH
+\begin_inset Formula $\leq_{p}$
+\end_inset
+
+UHAMPATH
+\end_layout
+
+\begin_layout Standard
+The construction goes as follows: Given a 
+\begin_inset Formula $\left\langle G,s,t\right\rangle $
+\end_inset
+
+, an input to HAMPATH, we must construct a 
+\begin_inset Formula $\left\langle G^{\prime},s^{\prime},t^{\prime}\right\rangle $
+\end_inset
+
+ which is an input to UHAMPATH.
+\end_layout
+
+\begin_layout Standard
+1.
+ For each vertex (except s and t) in G, add 
+\begin_inset Formula $v^{i},v^{m},v^{o}$
+\end_inset
+
+ to 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+ where i stands for in, m stands for mid, and o stands for out.
+ 
+\end_layout
+
+\begin_layout Standard
+2.
+ set 
+\begin_inset Formula $s^{\prime}$
+\end_inset
+
+to 
+\begin_inset Formula $s^{o}$
+\end_inset
+
+, and 
+\begin_inset Formula $t^{\prime}$
+\end_inset
+
+ to 
+\begin_inset Formula $t^{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+3.
+ Connect 
+\begin_inset Formula $v^{m}$
+\end_inset
+
+ with 
+\begin_inset Formula $v^{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $v^{o}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+4.
+ If 
+\begin_inset Formula $\left(u,v\right)\in E\left(G\right)$
+\end_inset
+
+, then connect 
+\begin_inset Formula $u^{o}$
+\end_inset
+
+ to 
+\begin_inset Formula $v^{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+The forward direction
+\end_layout
+
+\begin_layout Standard
+Assume that G contains a hamiltonian path from s to t.
+ By the given construction above, each edge 
+\begin_inset Formula $\left(u,v\right)\in G$
+\end_inset
+
+ has a corresponding path 
+\begin_inset Formula $u^{o}\to v^{i}\to v^{m}\to v^{o}\in G^{\prime}$
+\end_inset
+
+.
+ This implies a UHAMPATH exists from s to t in 
+\begin_inset Formula $G^{\prime}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+The reverse direction
+\end_layout
+
+\begin_layout Standard
+IDEK.
+\end_layout
+
+\begin_layout Section
 SUBSET-SUM is NP-Complete
 \end_layout
 
@@ -2660,6 +4151,30 @@ This construction is polytime because pulling a magic number out of a hat
 
  time since k is bound by n.
  Therefore, our construction is polytime
+\end_layout
+
+\begin_layout Section
+Remaining questions
+\end_layout
+
+\begin_layout Standard
+Reduce HAMPATH to UHAMPATH
+\end_layout
+
+\begin_layout Standard
+Do the other parts of question 2
+\end_layout
+
+\begin_layout Standard
+Solve some min/max questions
+\end_layout
+
+\begin_layout Standard
+Solve closure under homomorphism/complement
+\end_layout
+
+\begin_layout Standard
+Half vertex covers
 \end_layout
 
 \end_body
