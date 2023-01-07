@@ -113,7 +113,11 @@ mastery of B36 material.
  The point of this document is to prove most of the claims in the course
  and to document its proof techniques, that way it can serve as a reference
  for C63 topics.
- Sisper also leaves rigorous definitions as exercises to the reader.
+ Sisper also leaves rigorous definitions as exercises to the reader, I tried
+ not to.
+ Feel free to message me over discord for corrections or for comments.
+ I'd also be happy to help people out with the course.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -1753,165 +1757,6 @@ This is polytime with respect to
  run n times, which is polytime
 \end_layout
 
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Discuss the closure of NP under complement and homomorphisms
-\end_layout
-
-\begin_layout Standard
-NO
-\end_layout
-
-\begin_layout Subsection
-Define a new language operation and prove whether NP is closed under it
-\end_layout
-
-\begin_layout Standard
-My new language operation is 
-\begin_inset Formula $\circleddash\left(A\right)$
-\end_inset
-
-, which removes every odd* element of A from the set.
- 
-\end_layout
-
-\begin_layout Standard
-NP is NOT closed under 
-\begin_inset Formula $\circleddash$
-\end_inset
-
-.
- Consider a language where the even elements are 
-\begin_inset Formula $\left\{ 1\right\} $
-\end_inset
-
- and the odd elements are members of CLIQUE.
- When the odd elements are removed, the language becomes polytime solvable,
- but CLIQUE is in NP, and unioning it with another language like 
-\begin_inset Formula $\left\{ 1\right\} $
-\end_inset
-
- is still NP.
- 
-\end_layout
-
-\begin_layout Subsection
-Is NP closed under 
-\begin_inset Quotes eld
-\end_inset
-
-inverses
-\begin_inset Quotes erd
-\end_inset
-
- of the above operations, so if 
-\begin_inset Formula $L_{1}\cup L_{2}\in\text{NP}$
-\end_inset
-
-, Does it follow that 
-\begin_inset Formula $L_{2}\in\text{NP}$
-\end_inset
-
-? 
-\end_layout
-
-\begin_layout Standard
-No because 
-\begin_inset Formula $\text{CLIQUE}\cup\emptyset$
-\end_inset
-
- is in NP, but a solver for the empty language is trivial.
- Therefore, if 
-\begin_inset Formula $L_{1}\cup L_{2}\in\text{NP}$
-\end_inset
-
-, it does not follow that 
-\begin_inset Formula $L_{2}\in\text{NP}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-What about all the others?
-\end_layout
-
-\begin_layout Standard
-If 
-\begin_inset Formula $L_{1}\cap L_{2}\in\text{NP}$
-\end_inset
-
-, it does not follow that 
-\begin_inset Formula $L_{2}$
-\end_inset
-
- is in NP since 
-\begin_inset Formula $L_{2}$
-\end_inset
-
- could be 
-\begin_inset Formula $\Sigma^{\star}$
-\end_inset
-
- in which case 
-\begin_inset Formula $L_{1}\cap L_{2}=L_{1}$
-\end_inset
-
-.
- Specific counterexample, 
-\begin_inset Formula $L_{2}=\Sigma^{\star}$
-\end_inset
-
- and 
-\begin_inset Formula $L_{1}=\text{CLIQUE}$
-\end_inset
-
-.
- 
-\begin_inset Formula $L_{1}\cap L_{2}\in\text{NP}$
-\end_inset
-
-, but 
-\begin_inset Formula $L_{2}\not\in\text{NP}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-If 
-\begin_inset Formula $L_{1}L_{2}\in\text{NP}$
-\end_inset
-
-, it does not follow that 
-\begin_inset Formula $L_{2}\in\text{NP}$
-\end_inset
-
-, since 
-\begin_inset Formula $L_{1}$
-\end_inset
-
- could be CLIQUE, and 
-\begin_inset Formula $L_{2}$
-\end_inset
-
- could be 
-\begin_inset Formula $\left\{ \epsilon\right\} $
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Is co-NP closed under any of the above language operations?
-\end_layout
-
 \begin_layout Section
 NP-COMPLETENESS
 \end_layout
@@ -3451,10 +3296,6 @@ To constructing the structure (dimensions and layout) of the table, which
 \end_layout
 
 \begin_layout Standard
-lec: CSCC63_20221101 , 42 mins in
-\end_layout
-
-\begin_layout Standard
 3-col: 
 \end_layout
 
@@ -3809,169 +3650,6 @@ Output: A set of vertices
 I did not want to prove this
 \end_layout
 
-\begin_layout Section
-DOUBLE-HAMPATH is NP-complete
-\end_layout
-
-\begin_layout Subsection
-Show that DOUBLE-HAMPATH
-\begin_inset Formula $\in$
-\end_inset
-
-NP
-\end_layout
-
-\begin_layout Subsection
-Show that DOUBLE-HAMPATH is NP-Complete
-\end_layout
-
-\begin_layout Standard
-WTS: 
-\begin_inset Formula $\text{\ensuremath{\text{HAMPATH}\leq_{p}}DOUBLE-HAMPATH}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To construct this, if 
-\begin_inset Formula $\left\langle G,s,t\right\rangle $
-\end_inset
-
- is an input to HAMPATH, we must map it to an input 
-\begin_inset Formula $\left\langle G^{\prime},s^{\prime},t^{\prime}\right\rangle $
-\end_inset
-
- to DOUBLE-HAMPATH
-\end_layout
-
-\begin_layout Standard
-The way we will do this is with a 
-\begin_inset Quotes eld
-\end_inset
-
-decision widget
-\begin_inset Quotes erd
-\end_inset
-
-: Add 3 vertices: 
-\begin_inset Formula $x,y,s_{t}$
-\end_inset
-
-.
- Add two edges, one from s to x, one from s to y.
- Next, add an edge from x to y and an edge from y to x.
- Then, add an edge from x and y to 
-\begin_inset Formula $s_{t}$
-\end_inset
-
-.
- Now, move all inbound and outbound edges that s has to 
-\begin_inset Formula $s_{t}$
-\end_inset
-
-.
- This looks as follows:
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-preview true
-filename "graphics/double-hampath.tex"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Finally, let 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
- equal our graph with this new widget, let 
-\begin_inset Formula $s^{\prime}=s$
-\end_inset
-
- and 
-\begin_inset Formula $t^{\prime}=t$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Now, assume that 
-\begin_inset Formula $\left\langle G,s,t\right\rangle \in$
-\end_inset
-
- HAMPATH.
- Because of the nature of our decision widget, we can either go up then
- down through it, or down then up(zig then zag or zag then zig?).
- Then, the rest of the path remains the same since the rest of the graph
- remains untouched.
- Since the rest of the graph contains a hampath, this implies that 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
- contains two hampaths from 
-\begin_inset Formula $s^{\prime}$
-\end_inset
-
- to 
-\begin_inset Formula $t^{\prime}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-Now, using the contrapositive, assume that 
-\begin_inset Formula $\left\langle G,s,t\right\rangle \not\in\text{HAMPATH}$
-\end_inset
-
-.
- This implies that no hamiltonian path exists from s to t.
- This implies that no hamiltonian path exists from 
-\begin_inset Formula $s_{t}$
-\end_inset
-
- to 
-\begin_inset Formula $t$
-\end_inset
-
-.
- Therefore, there is no hamiltonian path from 
-\begin_inset Formula $s=s^{\prime}$
-\end_inset
-
- to 
-\begin_inset Formula $t=t^{\prime}$
-\end_inset
-
-.
- Therefore, 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
- contains no double-hampath from 
-\begin_inset Formula $s^{\prime}$
-\end_inset
-
- to 
-\begin_inset Formula $t^{\prime}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-WHY POLYTIME
-\end_layout
-
 \begin_layout Subsection
 Find a non-decision version
 \end_layout
@@ -4151,30 +3829,6 @@ This construction is polytime because pulling a magic number out of a hat
 
  time since k is bound by n.
  Therefore, our construction is polytime
-\end_layout
-
-\begin_layout Section
-Remaining questions
-\end_layout
-
-\begin_layout Standard
-Reduce HAMPATH to UHAMPATH
-\end_layout
-
-\begin_layout Standard
-Do the other parts of question 2
-\end_layout
-
-\begin_layout Standard
-Solve some min/max questions
-\end_layout
-
-\begin_layout Standard
-Solve closure under homomorphism/complement
-\end_layout
-
-\begin_layout Standard
-Half vertex covers
 \end_layout
 
 \end_body

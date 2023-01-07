@@ -108,12 +108,12 @@ mastery of B36 material.
  me) lost valuable points on the midterms and finals because of lacking
  B36 skills.
  I did WELL in B36 too.
- Additionally, the book we used (Sisper) was overly long winded and did
+ Additionally, the book we used (Sipser) was overly long winded and did
  a poor job of connecting the ideas it contains together in a coherent story.
  The point of this document is to prove most of the claims in the course
  and to document its proof techniques, that way it can serve as a reference
  for C63 topics.
- Sisper also leaves rigorous definitions as exercises to the reader, I tried
+ Sipser also leaves rigorous definitions as exercises to the reader, I tried
  not to.
  Feel free to message me over discord for corrections or for comments.
  I'd also be happy to help people out with the course.
@@ -735,7 +735,7 @@ D is constructed to behave as follows:
 \begin_layout Standard
 \begin_inset Formula $D\left(\left\langle M\right\rangle \right)=\begin{cases}
 \text{accept} & \text{If M does not accept \left\langle M\right\rangle }\\
-\text{reject} & \text{If M accepts \left\langle M\right\rangle  }
+\text{reject} & \text{If M accepts \left\langle M\right\rangle }
 \end{cases}$
 \end_inset
 
@@ -749,7 +749,7 @@ Now, we run D on itself, to get
 \begin_layout Standard
 \begin_inset Formula $D\left(\left\langle D\right\rangle \right)=\begin{cases}
 \text{accept} & \text{If D rejects \left\langle D\right\rangle }\\
-\text{reject} & \text{If D accepts \left\langle D\right\rangle  }
+\text{reject} & \text{If D accepts \left\langle D\right\rangle }
 \end{cases}$
 \end_inset
 
@@ -1340,7 +1340,7 @@ A verifier for a language A is an algorithm V where
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A=\left\{ w|\text{ V accepts \left\langle w,c\right\rangle  for some string c }\right\} $
+\begin_inset Formula $A=\left\{ w|\text{ V accepts \left\langle w,c\right\rangle for some string c }\right\} $
 \end_inset
 
 
@@ -1408,7 +1408,7 @@ This is the official, immutable way to show that a problem is in NP, this
 \end_layout
 
 \begin_layout Section
-What is NP closed under? (Assignment 3 Q2 solution)
+What is NP closed under?
 \end_layout
 
 \begin_layout Subsection
@@ -1805,7 +1805,7 @@ A satisfiable boolean formula is a boolean formula such that some assignment
 \end_layout
 
 \begin_layout Standard
-This proof looks too big to put here
+This proof is WAY to big to put here
 \end_layout
 
 \begin_layout Section
@@ -1940,9 +1940,6 @@ operator
  Not only that, but this convention encourages un-mathematical, un-creative,
  instrumentalist applications of mathematical reasoning.
  This is wholly unfit for a theoretical course.
- This is unlike all other notation, and the person who invented it should
- be candidate #2 for NASA's man-on-the-sun space mission right after Elon
- Musk.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3458,203 +3455,6 @@ The reduction is polytime
 \end_layout
 
 \begin_layout Section
-Assignment question: 2b
-\end_layout
-
-\begin_layout Subsection
-Prove that DISJOINT-CLIQUE is in NP
-\end_layout
-
-\begin_layout Subsection
-Show DISJOINT-CLIQUE is NP-Complete
-\end_layout
-
-\begin_layout Standard
-We will reduce from 
-\begin_inset Formula $\text{CLIQUE}\leq_{p}\text{DISJOINT-CLIQUE}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To transform an input to CLIQUE 
-\begin_inset Formula $\left\langle G,k\right\rangle $
-\end_inset
-
- to an input 
-\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle $
-\end_inset
-
- to DISJOINT-CLIQUE, do as follows:
-\end_layout
-
-\begin_layout Standard
-1.
- Put all vertices with k-1 or more edges into a group C
-\end_layout
-
-\begin_layout Standard
-2.
- Let 
-\begin_inset Formula $G^{\prime}=C+C^{\prime}$
-\end_inset
-
-where 
-\begin_inset Formula $C^{\prime}$
-\end_inset
-
-is all of the edges and vertices in C but with an added 
-\begin_inset Formula $\prime$
-\end_inset
-
- to the vertex names
-\end_layout
-
-\begin_layout Standard
-3.
- Let 
-\begin_inset Formula $k^{\prime}=k$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Pf that this reduciton works:
-\end_layout
-
-\begin_layout Subsubsection
-Assume 
-\begin_inset Formula $\left\langle G,k\right\rangle \in\text{CLIQUE}$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-If G has a clique of size k, then all edges in the clique must have k-1
- or more edges leading out of it.
- This implies that all these edges are cloned into 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
-, which implies that 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
-has two cliques of size k (or more).
- This implies that 
-\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Assume 
-\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-If 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
- has at least two cliques of size k, then suppose for purposes of contradiction
- that 
-\begin_inset Formula $G$
-\end_inset
-
- has no clique of size k.
- If G has no clique of size k, then no subset of 
-\begin_inset Formula $C^{\prime}$
-\end_inset
-
- must form a clique of size k.
- This implies that none of the components of C form a clique of size k.
- This implies that 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
-, which equals 
-\begin_inset Formula $C+C^{\prime}$
-\end_inset
-
-, has no cliques of size k, which is a contradiction to the assumption that
- 
-\begin_inset Formula $G^{\prime}$
-\end_inset
-
- has at least two cliques of size k.
- Therefore, if 
-\begin_inset Formula $\left\langle G^{\prime},k^{\prime}\right\rangle \in\text{DISJOINT-CLIQUE\ensuremath{\implies\left\langle G,k\right\rangle \in\text{CLIQUE}}}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-This reduction is polytime
-\end_layout
-
-\begin_layout Standard
-Finding all the vertices with 
-\begin_inset Formula $k-1$
-\end_inset
-
- or more edges takes 
-\begin_inset Formula $\mathcal{O}\left(n^{2}\right)$
-\end_inset
-
- time, so this reduction is polytime
-\end_layout
-
-\begin_layout Subsection
-Find a non-decision version of DISJOINT-CLIQUE
-\end_layout
-
-\begin_layout Standard
-MAX-DISJOINT-CLIQUE
-\end_layout
-
-\begin_layout Standard
-Input: A graph G
-\end_layout
-
-\begin_layout Standard
-Output: A set of vertices 
-\begin_inset Formula $V_{1}$
-\end_inset
-
-, 
-\begin_inset Formula $V_{2}$
-\end_inset
-
- such that 
-\begin_inset Formula $V_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{2}$
-\end_inset
-
- are disjoint cliques, and there are no two disjoint cliques of greater
- size in G
-\end_layout
-
-\begin_layout Standard
-I did not want to prove this
-\end_layout
-
-\begin_layout Subsection
-Find a non-decision version
-\end_layout
-
-\begin_layout Section
 COL is NP-complete
 \end_layout
 
@@ -3829,6 +3629,14 @@ This construction is polytime because pulling a magic number out of a hat
 
  time since k is bound by n.
  Therefore, our construction is polytime
+\end_layout
+
+\begin_layout Part
+Space complexity
+\end_layout
+
+\begin_layout Standard
+I didn't end up writing this
 \end_layout
 
 \end_body
